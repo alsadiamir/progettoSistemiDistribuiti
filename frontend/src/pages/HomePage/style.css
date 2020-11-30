@@ -1,0 +1,14 @@
+.error-box {
+    background-color: red;
+    color: whitesmoke;
+    opacity: 0.6;
+    border-radius: 2rem;
+    border-color: black;
+    border-width: 1px;
+    padding: 2rem;
+    margin: 1rem;
+    min-width: 15rem;
+    text-align: center;
+    outline: none;
+}
+
