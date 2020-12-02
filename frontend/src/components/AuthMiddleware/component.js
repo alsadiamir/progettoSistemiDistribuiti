@@ -2,6 +2,23 @@ import { useState } from 'react';
 import GoogleLoginButton from '../GoogleLoginButton/component';
 import UserContext from '../UserContext/component';
 import ErrorBox from '../ErrorBox/component'
+import styled from 'styled-components';
+
+const ContainerDiv = styled.div`
+    margin: auto;10rem
+    margin-top:10rem;
+    width: 30rem;
+`
+
+const CenterDiv = styled.div`
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    justify-content: center;
+`
+
+const WelcomeText = styled.h3`
+`
 
 function AuthMiddleware({ children }) {
     const [authedUser, setAuthedUser] = useState(null);
@@ -15,13 +32,17 @@ function AuthMiddleware({ children }) {
     return (    
         <UserContext.Provider value={authedUser} >
             {!authedUser && (
-                <>
-                    <span>You are not authenticated in the system.<br/>Please proceed with the user authentication<br/><br/></span>
-                    <GoogleLoginButton
-                        onSuccess={onSuccess}
-                        onFailure={setLastError} 
-                    />
-                </>
+                <ContainerDiv>
+                    <CenterDiv>
+                        <WelcomeText>
+                            You are not authenticated in the system.<br/>Please proceed with the user authentication<br/><br/>
+                        </WelcomeText>
+                        <GoogleLoginButton
+                            onSuccess={onSuccess}
+                            onFailure={setLastError} 
+                        />
+                    </CenterDiv>
+                </ContainerDiv>
             )}
             {!authedUser && lastError && (
                 <ErrorBox>

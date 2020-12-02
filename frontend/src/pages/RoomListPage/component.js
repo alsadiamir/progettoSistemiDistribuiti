@@ -4,6 +4,9 @@ import RoomPage from '../RoomPage/component';
 
 const ContainerDiv = styled.div`
     padding: 1rem;
+`;
+
+const EntryList = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -33,6 +36,10 @@ const MenuEntryTitleSpan = styled.span`
     font-weight: bold;
 `;
 
+const PageTitle = styled.h1`
+    text-align: center;
+`;
+
 function RoomListPage() {  
     // TODO: Grab those from backend and show loading state
     const [rooms, setRooms] = useState([
@@ -50,18 +57,25 @@ function RoomListPage() {
 
     return (
         <ContainerDiv>
-            {!selectedRoomID && rooms.map((m => (
-                <MenuEntryDiv
-                    key={m.id}
-                    onClick={() => setSelectedRoomID(m.id)}
-                >
-                    <MenuEntryTitleSpan>{m.name}</MenuEntryTitleSpan>
-                    <span>{m.address}</span>
-                </MenuEntryDiv>
-            )))}
+            {!selectedRoomID && (
+                <>
+                    <PageTitle>Available Rooms</PageTitle>
+                    <EntryList>
+                        {rooms.map((m => (
+                            <MenuEntryDiv
+                                key={m.id}
+                                onClick={() => setSelectedRoomID(m.id)}
+                            >
+                                <MenuEntryTitleSpan>{m.name}</MenuEntryTitleSpan>
+                                <span>{m.address}</span>
+                            </MenuEntryDiv>
+                        )))}
+                    </EntryList> 
+                </>
+            )}
             {selectedRoomID && (
                 <RoomPage
-                    roomID={selectedRoomID}
+                    room={rooms.find(r => r.id === selectedRoomID)}
                     onGoBack={() => setSelectedRoomID(null)}
                 />
             )}

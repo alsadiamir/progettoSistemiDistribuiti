@@ -3,11 +3,12 @@ import UserContext from '../../components/UserContext/component';
 import styled from 'styled-components'
 import LeftBar from './LeftBar/component';
 import RoomListPage from '../RoomListPage/component';
+import ReservationListPage from '../ReservationListPage/component';
 
 const ContainerDiv = styled.div`
-    width: 100%;
-    height: 100%;
-    margin: 2rem;
+    width: 90%;
+    height: 90%;
+    margin: 1rem;
     display: flex;
     flex-direction: row;
 `;
@@ -17,11 +18,7 @@ const LeftBarDiv = styled.div`
 `;
 
 const MainContentDiv = styled.div`
-    width: 100%;
-`;
-
-const PageTitleDiv = styled.div`
-    text-align: center;
+    width: 80%;
 `;
 
 const menuOptions = [
@@ -43,15 +40,11 @@ function HomePage() {
                 />
             </LeftBarDiv>
             <MainContentDiv>
-                {openPage && (
-                    <PageTitleDiv>
-                        <h1>
-                            {menuOptions.find((o) => o.code === openPage).title}
-                        </h1>
-                    </PageTitleDiv>
-                )}
                 {openPage && openPage === "rooms" && (
                     <RoomListPage />
+                )}
+                {openPage && openPage === "reservations" && (
+                    <ReservationListPage />
                 )}
             </MainContentDiv>
         </ContainerDiv>
