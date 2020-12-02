@@ -20,3 +20,5 @@ curl -X GET http://localhost:8080/user/1
 curl -X POST -H "Content-Type: application/json" -d '{"user":{"id":1},"seat":{"id":1},"reservationDate":"12/11/2015","firstBlockReserved":1,"blocksReserved":5}' http://localhost:8080/reservation
 #update reservation
 curl -X POST -H "Content-Type: application/json" -d '{"user":{"id":1},"seat":{"id":1},"reservationDate":"12/11/2015","firstBlockReserved":1,"blocksReserved":4}' http://localhost:8080/reservation/update/ID
+#run docker prometheus-grafana
+sudo docker run -d --name prometheus_demo -p 9090:9090 -v /home/amir/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus --config.file=/etc/prometheus/prometheus.yml
