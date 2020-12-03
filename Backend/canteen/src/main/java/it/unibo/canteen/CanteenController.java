@@ -106,8 +106,13 @@ public class CanteenController {
 	
 	@PostMapping("/user")
 	public String insertUser(@RequestBody User user) {
-		System.out.println(user);
-		userDAO.save(user);
+		Optional<User> existingUser = userDAO.findByMail(user.getMail());
+		existingUser.ifPresentOrElse(u -> {
+		    u.setDevice(user.getDevice());
+            userDAO.save(u);
+        }, ()-> {
+            userDAO.save(user);
+        });
 		return "User succesfully created! (id = " + user.getId() + ")";
 	}
 	
