@@ -3,6 +3,7 @@ import GoogleLoginButton from '../GoogleLoginButton/component';
 import UserContext from '../UserContext/component';
 import ErrorBox from '../ErrorBox/component'
 import styled from 'styled-components';
+import {BACKEND_ADDR} from '../../constants'
 
 const ContainerDiv = styled.div`
     margin: auto;10rem
@@ -25,8 +26,23 @@ function AuthMiddleware({ children }) {
     const [lastError, setLastError] = useState(null);
 
     const onSuccess = (user) => {
-        setAuthedUser(user);
-        setLastError(null);
+        const userData = {
+            mail: user.email,
+            device: "",
+        }
+        fetch('/user', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+          }).then(resp => {
+                console.warn(resp)
+                setAuthedUser(user);
+                setLastError(null);
+            }, error => {
+                setLastError(error.toString());
+            })
     };
 
     return (    
