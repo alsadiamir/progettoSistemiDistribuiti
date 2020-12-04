@@ -1,6 +1,8 @@
 package it.unibo.canteen;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.gson.Gson;
 
 import it.unibo.canteen.dao.ReservationDAO;
 import it.unibo.canteen.dao.RoomDAO;
@@ -61,81 +65,134 @@ public class CanteenController {
 	} 
 
 	@GetMapping("/user/{id}")
-	public User getUser(@PathVariable("id") int userId) {
+	public String getUser(@PathVariable("id") int userId) {
 		Optional<User> user = userDAO.findById(userId);
-		return user.get();
+		if(user.isPresent()) {
+			String response = new Gson().toJson(user.get());
+			return response;
+		}
+		else return "{\"Error\": \"Couldn't find user!\"}";
 	}
 	
 	@GetMapping("/rooms")
-	public List<Room> getAllRooms() {
+	public String getAllRooms() {
 		List<Room> rooms = (List<Room>) roomDAO.findAll();
-		return rooms;
+		if (!rooms.isEmpty()) {
+			String response = new Gson().toJson(rooms);
+			return response;
+		}
+		else return "{\"Error\": \"Couldn't find any room!\"}";
 	}
 	
 	@GetMapping("/room/{id}")
-	public Room getRoom(@PathVariable("id") int roomId) {
+	public String getRoom(@PathVariable("id") int roomId) {
 		Optional<Room> room = roomDAO.findById(roomId);
-		return room.get();
+		if(room.isPresent()) {
+			String response = new Gson().toJson(room.get());
+			return response;
+		}
+		else return "{\"Error\": \"Couldn't find room!\"}";
 	}	
 	
 	@GetMapping("/seats")
-	public List<Seat> getAllSeatsOfRoom(@RequestParam(name="roomId", required=true) int roomId) {
+	public String getAllSeatsOfRoom(@RequestParam(name="roomId", required=true) int roomId) {
 		List<Seat> seats = seatDAO.findByRoomId(roomId);
-		if(seats != null) return seats;
-		else return null;
+		if(!seats.isEmpty()) {
+			String response = new Gson().toJson(seats);
+			return response;
+		}
+		else return "{\"Error\": \"Couldn't find any seat!\"}";
 	}
 	
-	@GetMapping("/seats/{id}")
-	public Seat getSeat(@PathVariable("id") int seatId) {
+	@GetMapping("/seat/available")
+	public String checkSeatIsAvailableInDateAndBlock(@RequestParam(name="seatId", required=true) int seatId, 
+			@RequestParam(name="reservationDate", required=true) String reservationDate,
+			@RequestParam(name="block", required=true) int block) {
 		Optional<Seat> seat = seatDAO.findById(seatId);
-		return seat.get();
+		if(seat.isPresent()) {
+			LocalDate date = LocalDate.parse(reservationDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		System.out.println(date);
+		Optional<Reservation> reservation = reservationDAO.checkIfAvailableInDateAndBlock(seat.get(), date, block); 
+		if(reservation.isPresent()) return "{\"Response\": \"Seat is busy!\"}";
+		else return "{\"Response\": \"Seat is not busy!\"}";
+		}
+		else return "{\"Error\": \"Seat doesn't exist!\"}";	
+	}
+	
+	@GetMapping("/seat/{id}")
+	public String getSeat(@PathVariable("id") int seatId) {
+		Optional<Seat> seat = seatDAO.findById(seatId);
+		if(seat.isPresent()) {
+			String response = new Gson().toJson(seat.get());
+			return response;
+		}
+		else return "{\"Error\": \"Couldn't find seat!\"}";
 	}
 	
 	@GetMapping("/reservation")
-	public List<Reservation> getAllReservationsOfUser(@RequestParam(name="userId", required=true) int userId) {
+	public String getAllReservationsOfUser(@RequestParam(name="userId", required=true) int userId) {
 		List<Reservation> reservations = reservationDAO.findByUserId(userId);
-		if(reservations != null) return reservations;
-		else return null;
+		if(!reservations.isEmpty()) {
+			String response = new Gson().toJson(reservations);
+			return response;
+		}
+		else return "{\"Error\": \"Couldn't find any reservation!\"}";
 	}
 	
 	@GetMapping("/reservation/{id}")
-	public Reservation getReservation(@PathVariable int reservationId) {
+	public String getReservation(@PathVariable int reservationId) {
 		Optional<Reservation> reservation = reservationDAO.findById(reservationId);
-		return reservation.get();
+		if(reservation.isPresent()) {
+			String response = new Gson().toJson(reservation.get());
+			return response;
+		}
+		else return "{\"Error\": \"Couldn't find reservation!\"}";
 	}
 	
 	@PostMapping("/user")
 	public String insertUser(@RequestBody User user) {
-		Optional<User> existingUser = userDAO.findByMail(user.getMail());
-		existingUser.ifPresentOrElse(u -> {
-		    u.setDevice(user.getDevice());
-            userDAO.save(u);
-        }, ()-> {
-            userDAO.save(user);
-        });
-		return "User succesfully created! (id = " + user.getId() + ")";
+		Optional<User> alreadyAvailable = userDAO.findByMail(user.getMail());
+		if(alreadyAvailable.isPresent()) {
+			alreadyAvailable.get().setDevice(user.getDevice());
+			userDAO.save(alreadyAvailable.get());
+			String response = new Gson().toJson(alreadyAvailable);
+			return response;
+		}
+		else {
+			userDAO.save(user);
+			String response = new Gson().toJson(user);
+			return response;
+		}		
+	}
+	
+	@PostMapping("/room")
+	public String insertRoom(@RequestBody Room room) {	
+		roomDAO.save(room);
+		String response = new Gson().toJson(room);
+		return response;		
+	}
+	
+	@PostMapping("/seat")
+	public String insertSeat(@RequestBody Seat seat) {
+		seatDAO.save(seat);
+		String response = new Gson().toJson(seat);
+		return response;
 	}
 	
 	@PostMapping("/reservation")
-	public String insertReservation(@RequestBody Reservation reservation) {
-		System.out.println("USER ID = "+reservation.getUser().getId());
-		System.out.println("SEAT ID = "+reservation.getSeat().getId());
-		System.out.println("BLOCKSRESERVED = "+reservation.getBlocksReserved());
-		if(!reservationDAO.findCollidingReservation(reservation.getUser(), reservation.getSeat(), reservation.getFirstBlockReserved(), reservation.getBlocksReserved()).isEmpty()) {
-			//manda messaggio
-			return "Couldn't create reservation! Collision!";
-		}
-		else {
-			List<Reservation> results = reservationDAO.findLastCollidingReservation(reservation.getSeat(), reservation.getFirstBlockReserved(), reservation.getReservationDate());
-			for(Reservation r : results) 
-				System.out.println("ID = " +r.getId());
-			if(!results.isEmpty()) {
-				reservation.setPreviousReservation(results.get(0).getId());
-			}
-			reservation.setCreatedAt(LocalDateTime.now());
-			reservationDAO.save(reservation);	
-			return "Reservation succesfully created! (id = " + reservation.getId() + ")";
-		}		
+	public String insertReservation(@RequestBody Reservation reservation) {	
+		
+		//ATTENZIONE: flusso di esecuzione: creazione reservation -> eliminazione reservation 
+		
+		if(!reservationDAO.checkIfAlreadyPresentInDate(reservation.getUser(),reservation.getSeat(), reservation.getReservationDate()).isEmpty()) 
+			return "{\"Error\": \"A reservation in this date and seat already exists for this user\"}";
+		
+		Optional<Reservation> result = reservationDAO.findPreviousReservation(reservation.getSeat(), reservation.getFirstBlockReserved(), reservation.getBlocksReserved(), reservation.getReservationDate());
+		if(!result.isEmpty()) reservation.setPreviousReservation(result.get().getId());
+		reservationDAO.save(reservation);	
+		String response = new Gson().toJson(reservation);
+		return response;
+					
 	}
 	
 	@PostMapping("/reservation/update/{id}")
@@ -145,9 +202,10 @@ public class CanteenController {
 			toEliminate.get().setEliminatedAt(LocalDateTime.now());
 			reservationDAO.save(toEliminate.get());
 			insertReservation(reservation);
-			return "Reservation succesfully updated! (id = " + reservation.getId() + ")";
+			String response = new Gson().toJson(reservation);
+			return response;
 		}
-		else return "Reservation not found :(";
+		else return "{\"Error\": \"Reservation to update not found :(\"}"; 
 		
 	}	
 	
@@ -155,10 +213,16 @@ public class CanteenController {
 	public String deleteReservation(@PathVariable int id) {
 		Optional<Reservation> reservation = reservationDAO.findById(id);
 		if(reservation.isPresent()) {
-			reservation.get().setEliminatedAt(LocalDateTime.now());
+			//toInform è la reservation a cui mandare il messaggio
+			Optional<Reservation> toInform = reservationDAO.findByPreviousReservationId(reservation.get().getId());
+			
+			toInform.get().setEliminatedAt(LocalDateTime.now());
 			reservationDAO.save(reservation.get());
-			return "Reservation succesfully deleted! (id = " + id + ")";	
+			toInform.get().setPreviousReservation(0);
+			reservationDAO.save(toInform.get());
+			String response = new Gson().toJson(reservation);
+			return response;	
 		}
-		else return "Couldn't delete entry! :(";
+		else return "{\"Error\": \"Couldn't delete entry! :(\"}";
 	}
 }

@@ -3,11 +3,13 @@ package it.unibo.canteen.dao;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+//import org.springframework.web.bind.annotation.RequestParam;
 
 import it.unibo.canteen.model.Reservation;
 import it.unibo.canteen.model.Seat;
@@ -17,14 +19,27 @@ import it.unibo.canteen.model.User;
 public interface ReservationDAO extends CrudRepository<Reservation, Integer> {
 	public List<Reservation> findByUserId(int userId);
 	
-	@Query("from Reservation where user = :user_id and seat = :seat_id and "
-			+ ":first_block_reserved < firstBlockReserved and firstBlockReserved > :first_block_reserved + :blocks_reserved and eliminatedAt is null")
-	public List<Reservation> findCollidingReservation(@Param("user_id") User user, @Param("seat_id") Seat seat, @Param("first_block_reserved") int first_block_reserved, 
-			@Param("blocks_reserved") int blocks_reserved);
+	public Optional<Reservation> findByPreviousReservationId(int previousReservationId);
 	
-	@Query("from Reservation r where r.id = (select MAX(id) from Reservation where seat = :seat_id and firstBlockReserved = :first_block_reserved and reservationDate = :reservation_date and eliminatedAt is null)")
-	public List<Reservation> findLastCollidingReservation(@Param("seat_id") Seat seat, @Param("first_block_reserved") int first_block_reserved, @Param("reservation_date") LocalDate reservationDate);
+//	@Query("from Reservation where user = :user and seat = :seat and not ( (:firstBlockReserved < firstBlockReserved and :firstBlockReserved + :blocksReserved < firstBlockReserved + blocksReserved) or :firstBlockReserved > firstBlockReserved) and eliminatedAt is null")
+//	public List<Reservation> findCollidingReservations(@Param("user") User user, @Param("seat") Seat seat, @Param("firstBlockReserved") int firstBlockReserved, @Param("blocksReserved") int blocksReserved);
+	
+	@Query("select r from Reservation r where r.id = (select MAX(id) from Reservation where seat = :seat and not ( :firstBlockReserved + :blocksReserved < firstBlockReserved or :firstBlockReserved > firstBlockReserved + blocksReserved ) and reservationDate = :reservationDate and eliminatedAt is null)")
+	public Optional<Reservation> findPreviousReservation(@Param("seat") Seat seat, @Param("firstBlockReserved") int firstBlockReserved, @Param("blocksReserved") int blocksReserved, @Param("reservationDate") LocalDate reservationDate);
+	
+	@Query("select r from Reservation r where r.seat = :seat and r.reservationDate = :reservationDate and r.eliminatedAt is null and r.firstBlockReserved <= :block and :block <= r.firstBlockReserved + r.blocksReserved and r.previousReservationId = 0")
+	public Optional<Reservation> checkIfAvailableInDateAndBlock(@Param("seat") Seat seat,@Param("reservationDate") LocalDate reservationDate,@Param("block") int block);
 
+	@Query("select r from Reservation r where r.user = :user and r.seat = :seat and r.reservationDate = :reservationDate and eliminatedAt is null")
+	public Optional<Reservation> checkIfAlreadyPresentInDate(@Param("user") User user, @Param("seat") Seat seat, @Param("reservationDate") LocalDate reservationDate);
+
+//	@Query("select r from Reservation r where r.user = :user and r.seat = :seat and r.reservationDate = :reservationDate and r.blocksReserved = :blocksReserved and r.firstBlockReserved = :firstBlockReserved and r.eliminatedAt is null")
+//	public Optional<Reservation> findIfAlreadyPersistedInGivenDate(@Param("user") User user,@Param("seat") Seat seat,@Param("reservationDate") LocalDate reservationDate,@Param("firstBlockReserved") int firstBlockReserved,
+//			@Param("blocksReserved") int blocksReserved);
+	
+//	@Query("select r from Reservation r where r.user = :user and r.seat = :seat and r.reservationDate = :reservationDate and r.blocksReserved = :blocksReserved and r.firstBlockReserved = :firstBlockReserved and r.eliminatedAt is not null")
+//	public Optional<Reservation> findIfAlreadyPersistedAndEliminated(@Param("user") User user,@Param("seat") Seat seat,@Param("reservationDate") LocalDate reservationDate,@Param("firstBlockReserved") int firstBlockReserved,
+//			@Param("blocksReserved") int blocksReserved);	
 }
 
 
