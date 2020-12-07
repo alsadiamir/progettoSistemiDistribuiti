@@ -1,19 +1,17 @@
 import firebase, { firebaseVapidKey } from '../firebase/component';
 import {useContext, useEffect, useState} from 'react';
 import UserContext from '../UserContext/component';
-import { usePostRequest } from '../../hooks/usePostRequest';
 
-function NotificationReceiver() {
+function NotificationReceiver({ onNewToken }) {
     const authedUser = useContext(UserContext)
     const [messagingInstance, setMessagingInstance] = useState(null);
     const [firebaseError, setFirebaseError] = useState(null);
-    const { doPost: updateUser, error: postError} = usePostRequest("/user")
     const [fcmToken, setFcmToken] = useState(null);
 
     useEffect(() => {
         setMessagingInstance(firebase.messaging());
         setFirebaseError(null)
-    }, [authedUser]);
+    }, [authedUser.id]);
 
     useEffect(() => {
         if (messagingInstance || firebaseError) {
@@ -32,13 +30,10 @@ function NotificationReceiver() {
     }, [messagingInstance, firebaseError]);
 
     useEffect(() => {
-        if(fcmToken && authedUser.mail) {
-            updateUser({
-                mail: authedUser.mail,
-                device: fcmToken,
-            })
+        if(fcmToken) {
+            onNewToken(fcmToken)
         }
-    }, [fcmToken, authedUser.mail, updateUser, postError])
+    }, [fcmToken, onNewToken])
     
     return <></>;
   }

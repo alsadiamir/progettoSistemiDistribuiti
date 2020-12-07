@@ -21,7 +21,7 @@ export const usePostRequest = (endpoint) => {
                 if (successData) {
                     setData(successData)
                 } else {
-                    setData(resp.json())
+                    resp.json().then(d => setData(d))
                 }
             } else {
                 setError(`Something went wrong when communicating with our servers (STATUS=${resp.status})`)

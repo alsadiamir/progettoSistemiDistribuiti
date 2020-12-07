@@ -4,6 +4,7 @@ import UserContext from '../UserContext/component';
 import ErrorBox from '../ErrorBox/component'
 import styled from 'styled-components';
 import { usePostRequest } from '../../hooks/usePostRequest';
+import useFcmAccessToken from '../../hooks/useFcmAccessToken'
 
 const ContainerDiv = styled.div`
     margin: auto;10rem
@@ -23,18 +24,43 @@ const WelcomeText = styled.h3`
 
 function AuthMiddleware({ children }) {
     const [lastError, setLastError] = useState(null);
+    const [googleUser, setGoogleUser] = useState(null)
+    const [curUser, setCurUser] = useState(null)
+    const {refresh: refreshDevice, token: device, error: deviceError} = useFcmAccessToken()
     const {doPost, data, error} = usePostRequest("/user")
     
     const onSuccess = (user) => {
-        const userData = {
-            mail: user.email,
-        }
-        doPost(userData, {
-            ...userData,
-            displayName: user.displayName,
-            accessToken: user.accessToken
-        })
+        setGoogleUser(user)
+        refreshDevice()
     };
+
+    useEffect(() => {
+        if(deviceError) {
+            setLastError(deviceError)
+        } else if (device && googleUser) {
+            setCurUser({
+                mail: googleUser.email,
+                displayName: googleUser.displayName,
+                accessToken: googleUser.accessToken
+            })
+            doPost({
+                mail: googleUser.email,
+                device: device,
+            })
+        }
+    }, [doPost, googleUser, device, deviceError])
+
+    useEffect(() => {
+        if(data && !error) {
+            setCurUser(c => {
+                return {
+                    ...c,
+                    device: data.value.device,
+                    id: data.value.id,
+                }
+            })
+        }
+    }, [data, error, setCurUser])
 
     useEffect(() => {
         if(error !== null) {
@@ -43,7 +69,7 @@ function AuthMiddleware({ children }) {
     }, [error])
 
     return (    
-        <UserContext.Provider value={data} >
+        <UserContext.Provider value={curUser} >
             {!data && (
                 <ContainerDiv>
                     <CenterDiv>
@@ -62,8 +88,10 @@ function AuthMiddleware({ children }) {
                     {lastError}
                 </ErrorBox>
             )}
-            {data && (
-                <>{children}</>
+            {curUser && (
+                <>
+                    {children}
+                </>
             )}
         </UserContext.Provider>
     );

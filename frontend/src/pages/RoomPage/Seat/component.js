@@ -1,6 +1,8 @@
 import styled from 'styled-components'
-import { useCallback, useEffect } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useGetRequest } from '../../../hooks/useGetRequest';
+import { usePostRequest } from '../../../hooks/usePostRequest';
+import UserContext from '../../../components/UserContext/component';
 
 const ReserveButton = styled.button`
     background-color: #2ecc71;
@@ -40,29 +42,53 @@ function Seat({seat, reservationDate, blockIndex, blocksCount}) {
         if (day.length < 2) 
             day = '0' + day;
 
-        return encodeURIComponent([day, month, year].join('/'));
+        return [day, month, year].join('/');
     }
 
-    const {data, loading} = useGetRequest(`/seat/available?seatId=${seat.id}&reservationDate=${formatDate(reservationDate)}&block=${blockIndex}`)
-
+    const authedUser = useContext(UserContext)
+    const {data, loading, refetch} = useGetRequest(`/seat/available?seatId=${seat.id}&reservationDate=${encodeURIComponent(formatDate(reservationDate))}&block=${blockIndex}`)
+    const {doPost, data: postData, error: postError} = usePostRequest(`/reservation`)
+    const [posted, setPosted] = useState(false)
 
     useEffect(() => {
-        console.warn(data)
-    }, [data])
+        console.warn(postData)
+    }, [postData, postError])
 
-    const onClick = useCallback((isBusy) => {
-        // Prenota
-    }, [seat.id, reservationDate, blockIndex])
+    const onClick = useCallback((_) => {
+       doPost({
+           user: {
+               id: authedUser.id,
+           },
+           seat: {
+               id: seat.id,
+           },
+           reservationDate: formatDate(reservationDate),
+           firstBlockReserved: blockIndex,
+           blocksReserved: blocksCount,
+       })
+       setPosted(true)
+    }, [doPost, seat.id, authedUser, reservationDate, blockIndex, blocksCount, setPosted])
+
+    useEffect(() => {
+        if (posted && postError)  {
+            alert("Something went wrong with your reservation! :(")
+            setPosted(false)
+        } if(posted && postData) {
+            alert("You reserved this seat!")
+            refetch()
+            setPosted(false)
+        }
+    }, [postData, postError, refetch, posted, setPosted])
 
     return (
         <>
             {!loading && data && (
                 <>
                     {data.busy === true && (
-                        <ReserveBusyButton onClick={onClick(true)}/>
+                        <ReserveBusyButton onClick={() => onClick(true)}/>
                     )}
                     {data.busy !== true && (
-                        <ReserveButton onClick={onClick(false)}/>
+                        <ReserveButton onClick={() => onClick(false)}/>
                     )}
                 </>
             )}

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import RoomPage from '../RoomPage/component';
 import { useGetRequest } from '../../hooks/useGetRequest';
 import ErrorBox from '../../components/ErrorBox/component';
@@ -75,7 +75,8 @@ function RoomListPage() {
         const now = new Date(Date.now())
         const openingTime = localTimeToDate(room.openingTime)
         const closingTime = localTimeToDate(room.closingTime)
-        return now >= openingTime && now <= closingTime
+        //return now >= openingTime && now <= closingTime TODO: Re-enable this
+        return true
     }
 
     return (
@@ -87,10 +88,9 @@ function RoomListPage() {
                             <PageTitle>Available Rooms</PageTitle>
                             <EntryList>
                                 {data.map((m => (
-                                    <>
+                                    <div key={m.id}>
                                         {isRoomOpen(m) && (
                                             <MenuEntryDiv
-                                                key={m.id}
                                                 onClick={() => setSelectedRoomID(m.id)}
                                             >
                                                 <MenuEntryTitleSpan>{m.name}</MenuEntryTitleSpan>
@@ -101,9 +101,7 @@ function RoomListPage() {
                                             </MenuEntryDiv>
                                         )}
                                         {!isRoomOpen(m) && (
-                                            <MenuEntryClosedDiv
-                                                key={m.id}
-                                            >
+                                            <MenuEntryClosedDiv>
                                                 <MenuEntryTitleSpan>{m.name}</MenuEntryTitleSpan>
                                                 <MenuEntrySubtitleSpan>{m.address}</MenuEntrySubtitleSpan>
                                                 <MenuEntrySubtitleSpan>
@@ -114,7 +112,7 @@ function RoomListPage() {
                                                 )}
                                             </MenuEntryClosedDiv>
                                         )}
-                                    </>
+                                    </div>
                                 )))}
                             </EntryList> 
                         </>

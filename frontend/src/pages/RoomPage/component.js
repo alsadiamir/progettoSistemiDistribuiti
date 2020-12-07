@@ -68,6 +68,7 @@ const mapTile = (seats, x, y, reservationDate, blockIndex, blocksCount) => {
 
 function RoomPage({room, onGoBack}) {  
     const {data, loading, error} = useGetRequest("/seats?roomId=" + room.id)
+    const [baseBlockIndex, setBaseBlockIndex] = useState(0)
     const [timeOptions, setTimeOptions] = useState(null)
     const [fromBlock, setFromBlock] = useState(null)
     const [toBlock, setToBlock] = useState(null)
@@ -116,6 +117,7 @@ function RoomPage({room, onGoBack}) {
         setTimeOptions(newTimeOptions)
         setFromBlock(curTimeBlock)
         setToBlock(curTimeBlock + 1)
+        setBaseBlockIndex(Math.floor(opening / blockSizeInMinutes))
     }, [room.openingTime, room.closingTime])
 
     return (
@@ -153,15 +155,17 @@ function RoomPage({room, onGoBack}) {
                     <h3>Choose the seat you want to reserve</h3>
                     <GridContainer>
                         <Grid>
-                            {Array(roomHeight).fill().map((_, y) => (
-                                <Row>
-                                    {Array(roomWidth).fill().map((_, x) => (
-                                        <Cell>
-                                            {mapTile(data, x, y, startDate, fromBlock, toBlock - fromBlock)}
-                                        </Cell>
-                                    ))}
-                                </Row>
-                            ))}
+                            <tbody>
+                                {Array(roomHeight).fill().map((_, y) => (
+                                    <Row>
+                                        {Array(roomWidth).fill().map((_, x) => (
+                                            <Cell key={`${x}-${y}`}>
+                                                {mapTile(data, x, y, startDate, baseBlockIndex + fromBlock, toBlock - fromBlock)}
+                                            </Cell>
+                                        ))}
+                                    </Row>
+                                ))}
+                            </tbody>
                         </Grid>   
                     </GridContainer> 
                 </>

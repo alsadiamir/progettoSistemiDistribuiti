@@ -143,13 +143,14 @@ public class CanteenController {
 	public String insertUser(@RequestBody User user) {
 		Optional<User> alreadyAvailable = userDAO.findByMail(user.getMail());
 		if(alreadyAvailable.isPresent()) {
-			alreadyAvailable.get().setDevice(user.getDevice());
-			userDAO.save(alreadyAvailable.get());
+		    user = alreadyAvailable.get();
+			user.setDevice(user.getDevice());
+			user = userDAO.save(alreadyAvailable.get());
 			String response = new Gson().toJson(alreadyAvailable);
 			return response;
 		}
 		else {
-			userDAO.save(user);
+			user = userDAO.save(user);
 			String response = new Gson().toJson(user);
 			return response;
 		}		
