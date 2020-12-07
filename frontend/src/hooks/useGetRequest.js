@@ -1,15 +1,27 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
+import UserContext from '../components/UserContext/component';
 
 export default function useGetRequest(endpoint) { 
+    const authedUser = useContext(UserContext)
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const refetch = useCallback(() => {
+    const refetch = useCallback((accessToken) => {
         setLoading(true)
         setError(null)
         setData(null);
-        fetch(endpoint).then(resp => {
+        var bearerToken = ""
+        if (accessToken) {
+            bearerToken = accessToken
+        } else if (authedUser) {
+            bearerToken = authedUser.accessToken
+        }
+        fetch(endpoint, {
+            headers: {
+              'Authorization': 'Bearer ' + bearerToken,
+            },
+        }).then(resp => {
             console.warn(resp)
             if (resp.ok === true) {
                 resp.json().then(v => {
@@ -24,7 +36,7 @@ export default function useGetRequest(endpoint) {
             setError(error.toString());
             setLoading(false)
         })
-    }, [endpoint])
+    }, [endpoint, authedUser])
 
     useEffect(() => {
         refetch()

@@ -39,10 +39,11 @@ function GoogleLoginButton({
     const [provider] = useState(new firebase.auth.GoogleAuthProvider()); 
     const handleClick = () => {
         firebase.auth().signInWithPopup(provider).then(function(result) {
+            //console.log(result)
             onSuccess({
                 email: result.user.email,
                 displayName: result.user.displayName,
-                accessToken: result.credential.accessToken,
+                accessToken: result.credential.idToken,
             })
           }).catch(function(error) {
             onFailure(error.message)

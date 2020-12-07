@@ -31,6 +31,7 @@ function AuthMiddleware({ children }) {
     
     const onSuccess = (user) => {
         setGoogleUser(user)
+        //console.log(user)
         refreshDevice()
     };
 
@@ -46,7 +47,7 @@ function AuthMiddleware({ children }) {
             doPost({
                 mail: googleUser.email,
                 device: device,
-            })
+            }, googleUser.accessToken)
         }
     }, [doPost, googleUser, device, deviceError])
 
@@ -67,6 +68,12 @@ function AuthMiddleware({ children }) {
             setLastError(error)
         }
     }, [error])
+
+    useEffect(() => {
+        if(curUser !== null) {
+            console.log(curUser)
+        }
+    }, [curUser])
 
     return (    
         <UserContext.Provider value={curUser} >

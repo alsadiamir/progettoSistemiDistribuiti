@@ -17,7 +17,8 @@ import it.unibo.canteen.model.User;
 
 @Transactional
 public interface ReservationDAO extends CrudRepository<Reservation, Integer> {
-	public List<Reservation> findByUserId(int userId);
+    @Query("select r from Reservation r where eliminatedAt is null and user_id = :userId")
+	public List<Reservation> findByUserId(@Param("userId") int userId);
 	
 	public Optional<Reservation> findByPreviousReservationId(int previousReservationId);
 	

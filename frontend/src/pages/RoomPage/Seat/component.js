@@ -58,6 +58,7 @@ function Seat({seat, reservationDate, blockIndex, blocksCount}) {
        doPost({
            user: {
                id: authedUser.id,
+               mail: authedUser.mail,
            },
            seat: {
                id: seat.id,

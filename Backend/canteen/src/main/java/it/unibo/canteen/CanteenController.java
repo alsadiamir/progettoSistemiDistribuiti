@@ -7,14 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 
+import it.unibo.canteen.authentication.AuthUserData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.google.gson.Gson;
 
@@ -65,9 +62,14 @@ public class CanteenController {
 	} 
 
 	@GetMapping("/user/{id}")
-	public String getUser(@PathVariable("id") int userId) {
+	public String getUser(
+            @RequestAttribute(AuthUserData.ATTR_NAME) AuthUserData authUser,
+            @PathVariable("id") int userId
+    ) {
 		Optional<User> user = userDAO.findById(userId);
 		if(user.isPresent()) {
+            if (!authUser.getEmail().equals(user.get().getMail()))
+                throw new AuthorizationServiceException("You have no rights to access this user");
 			String response = new Gson().toJson(user.get());
 			return response;
 		}
@@ -123,16 +125,28 @@ public class CanteenController {
 	}
 	
 	@GetMapping("/reservation")
-	public String getAllReservationsOfUser(@RequestParam(name="userId", required=true) int userId) {
+	public String getAllReservationsOfUser(
+            @RequestAttribute(AuthUserData.ATTR_NAME) AuthUserData authUser,
+            @RequestParam(name="userId", required=true) int userId
+    ) {
 		List<Reservation> reservations = reservationDAO.findByUserId(userId);
+		if(!reservations.isEmpty()) {
+            if (!authUser.getEmail().equals(reservations.get(0).getUser().getMail()))
+                throw new AuthorizationServiceException("You have no rights to access this user");
+        }
         String response = new Gson().toJson(reservations);
         return response;
 	}
 	
 	@GetMapping("/reservation/{id}")
-	public String getReservation(@PathVariable int reservationId) {
+	public String getReservation(
+	        @RequestAttribute(AuthUserData.ATTR_NAME) AuthUserData authUser,
+            @PathVariable int reservationId
+    ) {
 		Optional<Reservation> reservation = reservationDAO.findById(reservationId);
-		if(reservation.isPresent()) {
+		if(reservation.isPresent() && reservation.get().getEliminatedAt() == null) {
+            if (!authUser.getEmail().equals(reservation.get().getUser().getMail()))
+                throw new AuthorizationServiceException("You have no rights to access this user");
 			String response = new Gson().toJson(reservation.get());
 			return response;
 		}
@@ -140,7 +154,12 @@ public class CanteenController {
 	}
 	
 	@PostMapping("/user")
-	public String insertUser(@RequestBody User user) {
+	public String insertUser(
+	        @RequestAttribute(AuthUserData.ATTR_NAME) AuthUserData authUser,
+            @RequestBody User user
+    ) {
+	    if (!authUser.getEmail().equals(user.getMail()))
+	        throw new AuthorizationServiceException("You have no rights to access this user");
 		Optional<User> alreadyAvailable = userDAO.findByMail(user.getMail());
 		if(alreadyAvailable.isPresent()) {
 		    user = alreadyAvailable.get();
@@ -171,8 +190,13 @@ public class CanteenController {
 	}
 	
 	@PostMapping("/reservation")
-	public String insertReservation(@RequestBody Reservation reservation) {	
-		
+	public String insertReservation(
+            @RequestAttribute(AuthUserData.ATTR_NAME) AuthUserData authUser,
+            @RequestBody Reservation reservation
+    ) {
+        if (!authUser.getEmail().equals(reservation.getUser().getMail()))
+            throw new AuthorizationServiceException("You have no rights to access this user");
+
 		//ATTENZIONE: flusso di esecuzione: creazione reservation -> eliminazione reservation 
 		
 		if(!reservationDAO.checkIfAlreadyPresentInDate(reservation.getUser(),reservation.getSeat(), reservation.getReservationDate()).isEmpty()) 
@@ -187,12 +211,15 @@ public class CanteenController {
 	}
 
 	@PostMapping("/reservation/update/{id}")
-	public String updateReservation(@RequestBody Reservation reservation, @PathVariable int id) {
+	public String updateReservation(
+	        @RequestAttribute(AuthUserData.ATTR_NAME) AuthUserData authUser,
+            @RequestBody Reservation reservation,
+            @PathVariable int id) {
 		Optional<Reservation> toEliminate = reservationDAO.findById(id);
 		if(toEliminate.isPresent()) {
 			toEliminate.get().setEliminatedAt(LocalDateTime.now());
 			reservationDAO.save(toEliminate.get());
-			insertReservation(reservation);
+			insertReservation(authUser, reservation);
 			String response = new Gson().toJson(reservation);
 			return response;
 		}
@@ -201,9 +228,14 @@ public class CanteenController {
 	}
 
 	@PostMapping("/reservation/delete/{id}")
-	public String deleteReservation(@PathVariable int id) {
+	public String deleteReservation(
+            @RequestAttribute(AuthUserData.ATTR_NAME) AuthUserData authUser,
+            @PathVariable int id
+    ) {
 		Optional<Reservation> reservation = reservationDAO.findById(id);
 		if(reservation.isPresent()) {
+            if (!authUser.getEmail().equals(reservation.get().getUser().getMail()))
+                throw new AuthorizationServiceException("You have no rights to access this user");
 
 			Optional<Reservation> toInform = reservationDAO.findByPreviousReservationId(reservation.get().getId());
 			toInform.ifPresent((v) -> {
