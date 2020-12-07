@@ -155,19 +155,19 @@ public class CanteenController {
 		}		
 	}
 
-	@PostMapping("/room")
-	public String insertRoom(@RequestBody Room room) {	
-		roomDAO.save(room);
-		String response = new Gson().toJson(room);
-		return response;		
-	}
-	
-	@PostMapping("/seat")
-	public String insertSeat(@RequestBody Seat seat) {
-		seatDAO.save(seat);
-		String response = new Gson().toJson(seat);
-		return response;
-	}
+//	@PostMapping("/room")
+//	public String insertRoom(@RequestBody Room room) {
+//		roomDAO.save(room);
+//		String response = new Gson().toJson(room);
+//		return response;
+//	}
+//
+//	@PostMapping("/seat")
+//	public String insertSeat(@RequestBody Seat seat) {
+//		seatDAO.save(seat);
+//		String response = new Gson().toJson(seat);
+//		return response;
+//	}
 	
 	@PostMapping("/reservation")
 	public String insertReservation(@RequestBody Reservation reservation) {	

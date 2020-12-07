@@ -78,10 +78,6 @@ function RoomListPage() {
         return now >= openingTime && now <= closingTime
     }
 
-    useEffect(() => {
-        console.warn(data)
-    }, [data])
-
     return (
         <ContainerDiv>
             {!loading && !error && data && (

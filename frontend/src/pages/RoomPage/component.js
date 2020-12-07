@@ -4,6 +4,10 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import Select from 'react-select'
 import Seat from './Seat/component'
+import { useGetRequest } from '../../hooks/useGetRequest';
+import ErrorBox from '../../components/ErrorBox/component';
+
+const blockSizeInMinutes = 15;
 
 const ContainerDiv = styled.div`
     text-align: center;
@@ -50,18 +54,11 @@ const PageTitle = styled.h1`
     text-align: center;
 `;
 
-
-const timeOptions = [
-    { value: 1, label: '15 Mins' },
-    { value: 2, label: '30 Mins' },
-    { value: 3, label: '1 Hour' }
-]
-
-const mapTile = (seats, x, y) => {
+const mapTile = (seats, x, y, reservationDate, blockIndex, blocksCount) => {
     const seat = seats.find((r) => r.x === x && r.y === y);
     if (seat) {
         return (
-            <Seat seat={seat} />
+            <Seat seat={seat} reservationDate={reservationDate} blockIndex={blockIndex} blocksCount={blocksCount} />
         )
     }
     return (
@@ -70,15 +67,10 @@ const mapTile = (seats, x, y) => {
 }
 
 function RoomPage({room, onGoBack}) {  
-    // TODO: Grab those from backend and show loading state
-    const [seats, setSeats] = useState([
-        { id: 0, x: 1, y: 1},
-        { id: 1, x: 2, y: 1},
-        { id: 2, x: 1, y: 2},
-        { id: 3, x: 4, y: 4},
-        { id: 4, x: 7, y: 10},
-    ]);
-    const [timeOption, setTimeOption] = useState(timeOptions[1])
+    const {data, loading, error} = useGetRequest("/seats?roomId=" + room.id)
+    const [timeOptions, setTimeOptions] = useState(null)
+    const [fromBlock, setFromBlock] = useState(null)
+    const [toBlock, setToBlock] = useState(null)
     const [startDate, setStartDate] = useState(new Date());
     const [roomWidth, setRoomWidth] = useState(0);
     const [roomHeight, setRoomHeight] = useState(0);
@@ -87,12 +79,12 @@ function RoomPage({room, onGoBack}) {
         var maxW = 0;
         var maxH = 0;
 
-        if (seats) {
-            seats.forEach((s) => {
-                if(s.x > maxW) {
+        if (data && !loading && !error) {
+            data.forEach((s) => {
+                if(s.x + 1 > maxW) {
                     maxW = s.x + 1;
                 }
-                if(s.y > maxH) {
+                if(s.y + 1 > maxH) {
                     maxH = s.y + 1;
                 }
             })
@@ -100,38 +92,86 @@ function RoomPage({room, onGoBack}) {
 
         setRoomHeight(maxH);
         setRoomWidth(maxW);
-    }, [seats])
+    }, [data, loading, error])
+
+    useEffect(() => {
+        const opening = room.openingTime.hour * 60 + room.openingTime.minute
+        const closing = room.closingTime.hour * 60 + room.closingTime.minute
+        const numBlocks = Math.floor((closing - opening) / blockSizeInMinutes)
+        var newTimeOptions = []
+        var curTimeBlock = 0
+        for(let i = 0; i < numBlocks + 1; i++) {
+            var now = Date.now()
+            var dateNow = new Date(now)
+            var blockMinutes = opening + i * blockSizeInMinutes
+            dateNow.setHours(Math.floor(blockMinutes / 60), blockMinutes % 60, 0)
+            newTimeOptions.push({
+                value: i,
+                label: dateNow.toLocaleTimeString()
+            })
+            if(new Date(now) > dateNow) {
+                curTimeBlock = i
+            }
+        }
+        setTimeOptions(newTimeOptions)
+        setFromBlock(curTimeBlock)
+        setToBlock(curTimeBlock + 1)
+    }, [room.openingTime, room.closingTime])
 
     return (
         <ContainerDiv>
-            <PageTitle>{room.name}</PageTitle>
-            <h3>Choose Date and time of the reservation</h3>
-            <PickerContainerDiv>
-                <DatePickerDiv>
-                    <DatePicker
-                        minDate={new Date()}
-                        selected={startDate}
-                        onChange={setStartDate}
-                    />
-                </DatePickerDiv>
-                <TimePickerDiv>
-                    <Select value={timeOption} options={timeOptions} onChange={(v) => setTimeOption(v)}/>
-                </TimePickerDiv>
-            </PickerContainerDiv>
-            <h3>Choose the seat you want to reserve</h3>
-            <GridContainer>
-                <Grid>
-                    {Array(roomHeight).fill().map((_, y) => (
-                        <Row>
-                            {Array(roomWidth).fill().map((_, x) => (
-                                <Cell>
-                                    {mapTile(seats, x, y)}
-                                </Cell>
+            {!loading && !error && data && (
+                <>
+                    <PageTitle>{room.name}</PageTitle>
+                    <h3>Choose Date and time of the reservation</h3>
+                    <PickerContainerDiv>
+                        <DatePickerDiv>
+                            <DatePicker
+                                minDate={new Date()}
+                                selected={startDate}
+                                onChange={setStartDate}
+                            />
+                        </DatePickerDiv>
+                        {timeOptions && (
+                            <>
+                                <TimePickerDiv>
+                                    <Select value={timeOptions[fromBlock]} options={timeOptions} onChange={(v) => {
+                                        if(v.value < timeOptions.length - 1) {
+                                            setFromBlock(v.value)
+                                            if (v.value >= toBlock) {
+                                                setToBlock(v.value + 1)
+                                            }
+                                        }  
+                                    }}/>
+                                </TimePickerDiv>
+                                <TimePickerDiv>
+                                    <Select value={timeOptions[toBlock]} options={timeOptions} onChange={(v) => v.value > fromBlock && setToBlock(v.value)}/>
+                                </TimePickerDiv>
+                            </>
+                        )}
+                    </PickerContainerDiv>
+                    <h3>Choose the seat you want to reserve</h3>
+                    <GridContainer>
+                        <Grid>
+                            {Array(roomHeight).fill().map((_, y) => (
+                                <Row>
+                                    {Array(roomWidth).fill().map((_, x) => (
+                                        <Cell>
+                                            {mapTile(data, x, y, startDate, fromBlock, toBlock - fromBlock)}
+                                        </Cell>
+                                    ))}
+                                </Row>
                             ))}
-                        </Row>
-                    ))}
-                </Grid>   
-            </GridContainer>  
+                        </Grid>   
+                    </GridContainer> 
+                </>
+            )}
+            {loading && !error && (
+                <p>Loading...</p>
+            )} 
+            {!loading && error && (
+                <ErrorBox>error</ErrorBox>
+            )} 
         </ContainerDiv>
     );
 }
