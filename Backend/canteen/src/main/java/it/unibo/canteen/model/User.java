@@ -13,7 +13,7 @@ public class User {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(nullable = false)
+	@Column
 	private String device;
 	
 	@Column(unique = true, nullable = false)

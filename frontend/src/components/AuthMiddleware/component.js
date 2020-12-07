@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import GoogleLoginButton from '../GoogleLoginButton/component';
 import UserContext from '../UserContext/component';
 import ErrorBox from '../ErrorBox/component'
 import styled from 'styled-components';
-import {BACKEND_ADDR} from '../../constants'
+import { usePostRequest } from '../../hooks/usePostRequest';
 
 const ContainerDiv = styled.div`
     margin: auto;10rem
@@ -22,32 +22,25 @@ const WelcomeText = styled.h3`
 `
 
 function AuthMiddleware({ children }) {
-    const [authedUser, setAuthedUser] = useState(null);
     const [lastError, setLastError] = useState(null);
-
+    const {doPost, data, error} = usePostRequest("/user")
+    
     const onSuccess = (user) => {
         const userData = {
             mail: user.email,
-            device: "",
         }
-        fetch('/user', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-          }).then(resp => {
-                console.warn(resp)
-                setAuthedUser(user);
-                setLastError(null);
-            }, error => {
-                setLastError(error.toString());
-            })
+        doPost(userData, userData)
     };
 
+    useEffect(() => {
+        if(error !== null) {
+            setLastError(error)
+        }
+    }, [error])
+
     return (    
-        <UserContext.Provider value={authedUser} >
-            {!authedUser && (
+        <UserContext.Provider value={data} >
+            {!data && (
                 <ContainerDiv>
                     <CenterDiv>
                         <WelcomeText>
@@ -60,12 +53,12 @@ function AuthMiddleware({ children }) {
                     </CenterDiv>
                 </ContainerDiv>
             )}
-            {!authedUser && lastError && (
+            {!data && lastError && (
                 <ErrorBox>
                     {lastError}
                 </ErrorBox>
             )}
-            {authedUser && (
+            {data && (
                 <>{children}</>
             )}
         </UserContext.Provider>

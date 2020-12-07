@@ -1,42 +1,44 @@
 import firebase, { firebaseVapidKey } from '../firebase/component';
 import {useContext, useEffect, useState} from 'react';
 import UserContext from '../UserContext/component';
-import {BACKEND_ADDR} from '../../constants';
+import { usePostRequest } from '../../hooks/usePostRequest';
 
 function NotificationReceiver() {
     const authedUser = useContext(UserContext)
     const [messagingInstance, setMessagingInstance] = useState(null);
+    const [firebaseError, setFirebaseError] = useState(null);
+    const { doPost: updateUser, error: postError} = usePostRequest("/user")
+    const [fcmToken, setFcmToken] = useState(null);
 
     useEffect(() => {
         setMessagingInstance(firebase.messaging());
+        setFirebaseError(null)
     }, [authedUser]);
 
     useEffect(() => {
-        if (messagingInstance) {
+        if (messagingInstance || firebaseError) {
             messagingInstance.getToken({
                 vapidKey: firebaseVapidKey
             }).then((currentToken) => {
                 if (currentToken) {
-                    const userData = {
-                        mail: authedUser.email,
-                        device: currentToken,
-                    }
-                    const requestOptions = {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(userData),
-                    };
-                    fetch('/user', requestOptions).catch(err => console.err(err));
+                    setFcmToken(currentToken)
                 } else {
-                  // Show some sort of error and try again?
+                  setFirebaseError("Could not receive FCM device token")
                 }
-              }).catch((err) => {
-                // Show some sort of error and try again?
-              });
+            }).catch((err) => {
+                setFirebaseError(err.toString())    
+            });
         }
-    }, [messagingInstance, authedUser]);
+    }, [messagingInstance, firebaseError]);
+
+    useEffect(() => {
+        if(fcmToken && authedUser.mail) {
+            updateUser({
+                mail: authedUser.mail,
+                device: fcmToken,
+            })
+        }
+    }, [fcmToken, authedUser.mail, updateUser, postError])
     
     return <></>;
   }
