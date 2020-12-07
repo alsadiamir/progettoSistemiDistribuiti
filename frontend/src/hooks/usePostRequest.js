@@ -7,6 +7,8 @@ export const usePostRequest = (endpoint) => {
 
     const doPost = useCallback((body, successData) => {
         setLoading(true)
+        setError(null)
+        setData(null);
         fetch(endpoint, {
             method: 'POST',
             headers: {
@@ -19,16 +21,13 @@ export const usePostRequest = (endpoint) => {
                 if (successData) {
                     setData(successData)
                 } else {
-                    setData(resp.bodyUsed === true ? JSON.parse(resp.body) : null)
+                    setData(resp.json())
                 }
-                setError(null)
             } else {
-                setData(null)
                 setError(`Something went wrong when communicating with our servers (STATUS=${resp.status})`)
             }
             setLoading(false)
         }, error => {
-            setData(null);
             setError(error.toString());
             setLoading(false)
         })

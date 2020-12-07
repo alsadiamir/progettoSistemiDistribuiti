@@ -29,7 +29,11 @@ function AuthMiddleware({ children }) {
         const userData = {
             mail: user.email,
         }
-        doPost(userData, userData)
+        doPost(userData, {
+            ...userData,
+            displayName: user.displayName,
+            accessToken: user.accessToken
+        })
     };
 
     useEffect(() => {

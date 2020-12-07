@@ -71,17 +71,14 @@ public class CanteenController {
 			String response = new Gson().toJson(user.get());
 			return response;
 		}
-		else return "{\"Error\": \"Couldn't find user!\"}";
+		else return "{\"error\": \"Couldn't find user!\"}";
 	}
 	
 	@GetMapping("/rooms")
 	public String getAllRooms() {
 		List<Room> rooms = (List<Room>) roomDAO.findAll();
-		if (!rooms.isEmpty()) {
-			String response = new Gson().toJson(rooms);
-			return response;
-		}
-		else return "{\"Error\": \"Couldn't find any room!\"}";
+        String response = new Gson().toJson(rooms);
+        return response;
 	}
 	
 	@GetMapping("/room/{id}")
@@ -91,17 +88,14 @@ public class CanteenController {
 			String response = new Gson().toJson(room.get());
 			return response;
 		}
-		else return "{\"Error\": \"Couldn't find room!\"}";
+		else return "{\"error\": \"Couldn't find room!\"}";
 	}	
 	
 	@GetMapping("/seats")
 	public String getAllSeatsOfRoom(@RequestParam(name="roomId", required=true) int roomId) {
 		List<Seat> seats = seatDAO.findByRoomId(roomId);
-		if(!seats.isEmpty()) {
-			String response = new Gson().toJson(seats);
-			return response;
-		}
-		else return "{\"Error\": \"Couldn't find any seat!\"}";
+        String response = new Gson().toJson(seats);
+        return response;
 	}
 	
 	@GetMapping("/seat/available")
@@ -111,12 +105,11 @@ public class CanteenController {
 		Optional<Seat> seat = seatDAO.findById(seatId);
 		if(seat.isPresent()) {
 			LocalDate date = LocalDate.parse(reservationDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		System.out.println(date);
-		Optional<Reservation> reservation = reservationDAO.checkIfAvailableInDateAndBlock(seat.get(), date, block); 
-		if(reservation.isPresent()) return "{\"Response\": \"Seat is busy!\"}";
-		else return "{\"Response\": \"Seat is not busy!\"}";
+            System.out.println(date);
+            Optional<Reservation> reservation = reservationDAO.checkIfAvailableInDateAndBlock(seat.get(), date, block);
+            return "{\"busy\": " + reservation.isPresent() + "}";
 		}
-		else return "{\"Error\": \"Seat doesn't exist!\"}";	
+		else return "{\"error\": \"Seat doesn't exist!\"}";
 	}
 	
 	@GetMapping("/seat/{id}")
@@ -126,17 +119,14 @@ public class CanteenController {
 			String response = new Gson().toJson(seat.get());
 			return response;
 		}
-		else return "{\"Error\": \"Couldn't find seat!\"}";
+		else return "{\"error\": \"Couldn't find seat!\"}";
 	}
 	
 	@GetMapping("/reservation")
 	public String getAllReservationsOfUser(@RequestParam(name="userId", required=true) int userId) {
 		List<Reservation> reservations = reservationDAO.findByUserId(userId);
-		if(!reservations.isEmpty()) {
-			String response = new Gson().toJson(reservations);
-			return response;
-		}
-		else return "{\"Error\": \"Couldn't find any reservation!\"}";
+        String response = new Gson().toJson(reservations);
+        return response;
 	}
 	
 	@GetMapping("/reservation/{id}")
@@ -146,7 +136,7 @@ public class CanteenController {
 			String response = new Gson().toJson(reservation.get());
 			return response;
 		}
-		else return "{\"Error\": \"Couldn't find reservation!\"}";
+		else return "{\"error\": \"Couldn't find reservation!\"}";
 	}
 	
 	@PostMapping("/user")
@@ -164,7 +154,7 @@ public class CanteenController {
 			return response;
 		}		
 	}
-	
+
 	@PostMapping("/room")
 	public String insertRoom(@RequestBody Room room) {	
 		roomDAO.save(room);
@@ -185,7 +175,7 @@ public class CanteenController {
 		//ATTENZIONE: flusso di esecuzione: creazione reservation -> eliminazione reservation 
 		
 		if(!reservationDAO.checkIfAlreadyPresentInDate(reservation.getUser(),reservation.getSeat(), reservation.getReservationDate()).isEmpty()) 
-			return "{\"Error\": \"A reservation in this date and seat already exists for this user\"}";
+			return "{\"error\": \"A reservation in this date and seat already exists for this user\"}";
 		
 		Optional<Reservation> result = reservationDAO.findPreviousReservation(reservation.getSeat(), reservation.getFirstBlockReserved(), reservation.getBlocksReserved(), reservation.getReservationDate());
 		if(!result.isEmpty()) reservation.setPreviousReservation(result.get().getId());
@@ -205,7 +195,7 @@ public class CanteenController {
 			String response = new Gson().toJson(reservation);
 			return response;
 		}
-		else return "{\"Error\": \"Reservation to update not found :(\"}"; 
+		else return "{\"error\": \"Reservation to update not found :(\"}";
 		
 	}	
 	
@@ -223,6 +213,6 @@ public class CanteenController {
 			String response = new Gson().toJson(reservation);
 			return response;	
 		}
-		else return "{\"Error\": \"Couldn't delete entry! :(\"}";
+		else return "{\"error\": \"Couldn't delete entry! :(\"}";
 	}
 }

@@ -1,6 +1,8 @@
 import styled from 'styled-components'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import RoomPage from '../RoomPage/component';
+import { useGetRequest } from '../../hooks/useGetRequest';
+import ErrorBox from '../../components/ErrorBox/component';
 
 const ContainerDiv = styled.div`
     padding: 1rem;
@@ -13,27 +15,47 @@ const EntryList = styled.div`
     justify-content: center;
 `;
 
-const MenuEntryDiv = styled.button`
-    margin: 1rem;
+const MenuEntryDiv = styled.button(() => [
+    `margin: 1rem;
     padding: 2rem;
     justify-content: center;
     display: flex;
     flex-direction: column;
-    background-color: #2980b9;
+    
     border-radius: 1rem;
     color: whitesmoke;
     box-decoration: none;
     outline: none;
-    border: none; 
+    border: none;
+    background-color: #2980b9;
+    &:hover { background-color: #2c3e50};`
+]);
+
+const MenuEntryClosedDiv = styled.button(() => [
+    `margin: 1rem;
+    padding: 2rem;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
     
-    &:hover {
-        background-color: #2c3e50;
-    }
-`;
+    border-radius: 1rem;
+    color: whitesmoke;
+    box-decoration: none;
+    outline: none;
+    border: none;
+    background-color: #95a5a6;
+    &:hover { background-color: #7f8c8d}; };`
+]);
 
 const MenuEntryTitleSpan = styled.span`
+    display: block;
     font-size: large;
     font-weight: bold;
+`;
+
+const MenuEntrySubtitleSpan = styled.span`
+    display: block; 
+    font-size: medium;
 `;
 
 const PageTitle = styled.h1`
@@ -41,44 +63,80 @@ const PageTitle = styled.h1`
 `;
 
 function RoomListPage() {  
-    // TODO: Grab those from backend and show loading state
-    const [rooms, setRooms] = useState([
-        { id: 0, name: "Mensa di Ingernaria", address: "Via Risorgimento 2, Bologna"},
-        { id: 1, name: "Bar all'Angolo", address: "Via dei Pioppi 5, Vicenza"},
-        { id: 2, name: "Hell's Kitchen", address: "The Strip, Las Vegas"},
-        { id: 3, name: "Mensa di Ingernaria", address: "Via Risorgimento 2, Bologna"},
-        { id: 4, name: "Bar all'Angolo", address: "Via dei Pioppi 5, Vicenza"},
-        { id: 5, name: "Hell's Kitchen", address: "The Strip, Las Vegas"},
-        { id: 6, name: "Mensa di Ingernaria", address: "Via Risorgimento 2, Bologna"},
-        { id: 7, name: "Bar all'Angolo", address: "Via dei Pioppi 5, Vicenza"},
-        { id: 8, name: "Hell's Kitchen", address: "The Strip, Las Vegas"},
-    ]);
+    const {data, loading, error} = useGetRequest("/rooms")
     const [selectedRoomID, setSelectedRoomID] = useState(null);
+
+    const localTimeToDate = (lt) => {
+        const date = new Date(Date.now())
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate(), lt.hour, lt.minute, lt.second);
+    }
+
+    const isRoomOpen = (room) => {
+        const now = new Date(Date.now())
+        const openingTime = localTimeToDate(room.openingTime)
+        const closingTime = localTimeToDate(room.closingTime)
+        return now >= openingTime && now <= closingTime
+    }
+
+    useEffect(() => {
+        console.warn(data)
+    }, [data])
 
     return (
         <ContainerDiv>
-            {!selectedRoomID && (
+            {!loading && !error && data && (
                 <>
-                    <PageTitle>Available Rooms</PageTitle>
-                    <EntryList>
-                        {rooms.map((m => (
-                            <MenuEntryDiv
-                                key={m.id}
-                                onClick={() => setSelectedRoomID(m.id)}
-                            >
-                                <MenuEntryTitleSpan>{m.name}</MenuEntryTitleSpan>
-                                <span>{m.address}</span>
-                            </MenuEntryDiv>
-                        )))}
-                    </EntryList> 
+                    {!selectedRoomID && (
+                        <>
+                            <PageTitle>Available Rooms</PageTitle>
+                            <EntryList>
+                                {data.map((m => (
+                                    <>
+                                        {isRoomOpen(m) && (
+                                            <MenuEntryDiv
+                                                key={m.id}
+                                                onClick={() => setSelectedRoomID(m.id)}
+                                            >
+                                                <MenuEntryTitleSpan>{m.name}</MenuEntryTitleSpan>
+                                                <MenuEntrySubtitleSpan>{m.address}</MenuEntrySubtitleSpan>
+                                                <MenuEntrySubtitleSpan>
+                                                    {localTimeToDate(m.openingTime).toLocaleTimeString()} - {localTimeToDate(m.closingTime).toLocaleTimeString()}
+                                                </MenuEntrySubtitleSpan>
+                                            </MenuEntryDiv>
+                                        )}
+                                        {!isRoomOpen(m) && (
+                                            <MenuEntryClosedDiv
+                                                key={m.id}
+                                            >
+                                                <MenuEntryTitleSpan>{m.name}</MenuEntryTitleSpan>
+                                                <MenuEntrySubtitleSpan>{m.address}</MenuEntrySubtitleSpan>
+                                                <MenuEntrySubtitleSpan>
+                                                    {localTimeToDate(m.openingTime).toLocaleTimeString()} - {localTimeToDate(m.closingTime).toLocaleTimeString()}
+                                                </MenuEntrySubtitleSpan>
+                                                {!isRoomOpen(m) && (
+                                                    <MenuEntrySubtitleSpan>CLOSED</MenuEntrySubtitleSpan>
+                                                )}
+                                            </MenuEntryClosedDiv>
+                                        )}
+                                    </>
+                                )))}
+                            </EntryList> 
+                        </>
+                    )}
+                    {selectedRoomID && (
+                        <RoomPage
+                            room={data.find(r => r.id === selectedRoomID)}
+                            onGoBack={() => setSelectedRoomID(null)}
+                        />
+                    )}
                 </>
             )}
-            {selectedRoomID && (
-                <RoomPage
-                    room={rooms.find(r => r.id === selectedRoomID)}
-                    onGoBack={() => setSelectedRoomID(null)}
-                />
-            )}
+            {loading && !error && (
+                <p>Loading...</p>
+            )} 
+            {!loading && error && (
+                <ErrorBox>error</ErrorBox>
+            )} 
         </ContainerDiv>
     );
 }
