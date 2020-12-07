@@ -156,19 +156,19 @@ public class CanteenController {
 		}		
 	}
 
-//	@PostMapping("/room")
-//	public String insertRoom(@RequestBody Room room) {
-//		roomDAO.save(room);
-//		String response = new Gson().toJson(room);
-//		return response;
-//	}
-//
-//	@PostMapping("/seat")
-//	public String insertSeat(@RequestBody Seat seat) {
-//		seatDAO.save(seat);
-//		String response = new Gson().toJson(seat);
-//		return response;
-//	}
+	@PostMapping("/room")
+	public String insertRoom(@RequestBody Room room) {
+		room = roomDAO.save(room);
+		String response = new Gson().toJson(room);
+		return response;
+	}
+
+	@PostMapping("/seat")
+	public String insertSeat(@RequestBody Seat seat) {
+		seat = seatDAO.save(seat);
+		String response = new Gson().toJson(seat);
+		return response;
+	}
 	
 	@PostMapping("/reservation")
 	public String insertReservation(@RequestBody Reservation reservation) {	
@@ -185,7 +185,7 @@ public class CanteenController {
 		return response;
 					
 	}
-	
+
 	@PostMapping("/reservation/update/{id}")
 	public String updateReservation(@RequestBody Reservation reservation, @PathVariable int id) {
 		Optional<Reservation> toEliminate = reservationDAO.findById(id);
@@ -197,21 +197,25 @@ public class CanteenController {
 			return response;
 		}
 		else return "{\"error\": \"Reservation to update not found :(\"}";
-		
-	}	
-	
+
+	}
+
 	@PostMapping("/reservation/delete/{id}")
 	public String deleteReservation(@PathVariable int id) {
 		Optional<Reservation> reservation = reservationDAO.findById(id);
 		if(reservation.isPresent()) {
-			//toInform è la reservation a cui mandare il messaggio
+
 			Optional<Reservation> toInform = reservationDAO.findByPreviousReservationId(reservation.get().getId());
-			
-			toInform.get().setEliminatedAt(LocalDateTime.now());
-			reservationDAO.save(reservation.get());
-			toInform.get().setPreviousReservation(0);
-			reservationDAO.save(toInform.get());
-			String response = new Gson().toJson(reservation);
+			toInform.ifPresent((v) -> {
+                toInform.get().setPreviousReservation(0);
+                reservationDAO.save(toInform.get());
+			    // TODO: Send push notification
+            });
+
+            Reservation r = reservation.get();
+            r.setEliminatedAt(LocalDateTime.now());
+			r = reservationDAO.save(r);
+			String response = new Gson().toJson(r);
 			return response;	
 		}
 		else return "{\"error\": \"Couldn't delete entry! :(\"}";

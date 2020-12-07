@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { useState } from 'react';
 import RoomPage from '../RoomPage/component';
-import { useGetRequest } from '../../hooks/useGetRequest';
+import useGetRequest from '../../hooks/useGetRequest';
 import ErrorBox from '../../components/ErrorBox/component';
 
 const ContainerDiv = styled.div`
@@ -31,22 +31,6 @@ const MenuEntryDiv = styled.button(() => [
     &:hover { background-color: #2c3e50};`
 ]);
 
-const MenuEntryClosedDiv = styled.button(() => [
-    `margin: 1rem;
-    padding: 2rem;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    
-    border-radius: 1rem;
-    color: whitesmoke;
-    box-decoration: none;
-    outline: none;
-    border: none;
-    background-color: #95a5a6;
-    &:hover { background-color: #7f8c8d}; };`
-]);
-
 const MenuEntryTitleSpan = styled.span`
     display: block;
     font-size: large;
@@ -71,14 +55,6 @@ function RoomListPage() {
         return new Date(date.getFullYear(), date.getMonth(), date.getDate(), lt.hour, lt.minute, lt.second);
     }
 
-    const isRoomOpen = (room) => {
-        const now = new Date(Date.now())
-        const openingTime = localTimeToDate(room.openingTime)
-        const closingTime = localTimeToDate(room.closingTime)
-        //return now >= openingTime && now <= closingTime TODO: Re-enable this
-        return true
-    }
-
     return (
         <ContainerDiv>
             {!loading && !error && data && (
@@ -89,29 +65,15 @@ function RoomListPage() {
                             <EntryList>
                                 {data.map((m => (
                                     <div key={m.id}>
-                                        {isRoomOpen(m) && (
-                                            <MenuEntryDiv
-                                                onClick={() => setSelectedRoomID(m.id)}
-                                            >
-                                                <MenuEntryTitleSpan>{m.name}</MenuEntryTitleSpan>
-                                                <MenuEntrySubtitleSpan>{m.address}</MenuEntrySubtitleSpan>
-                                                <MenuEntrySubtitleSpan>
-                                                    {localTimeToDate(m.openingTime).toLocaleTimeString()} - {localTimeToDate(m.closingTime).toLocaleTimeString()}
-                                                </MenuEntrySubtitleSpan>
-                                            </MenuEntryDiv>
-                                        )}
-                                        {!isRoomOpen(m) && (
-                                            <MenuEntryClosedDiv>
-                                                <MenuEntryTitleSpan>{m.name}</MenuEntryTitleSpan>
-                                                <MenuEntrySubtitleSpan>{m.address}</MenuEntrySubtitleSpan>
-                                                <MenuEntrySubtitleSpan>
-                                                    {localTimeToDate(m.openingTime).toLocaleTimeString()} - {localTimeToDate(m.closingTime).toLocaleTimeString()}
-                                                </MenuEntrySubtitleSpan>
-                                                {!isRoomOpen(m) && (
-                                                    <MenuEntrySubtitleSpan>CLOSED</MenuEntrySubtitleSpan>
-                                                )}
-                                            </MenuEntryClosedDiv>
-                                        )}
+                                        <MenuEntryDiv
+                                            onClick={() => setSelectedRoomID(m.id)}
+                                        >
+                                            <MenuEntryTitleSpan>{m.name}</MenuEntryTitleSpan>
+                                            <MenuEntrySubtitleSpan>{m.address}</MenuEntrySubtitleSpan>
+                                            <MenuEntrySubtitleSpan>
+                                                {localTimeToDate(m.openingTime).toLocaleTimeString()} - {localTimeToDate(m.closingTime).toLocaleTimeString()}
+                                            </MenuEntrySubtitleSpan>
+                                        </MenuEntryDiv>
                                     </div>
                                 )))}
                             </EntryList> 

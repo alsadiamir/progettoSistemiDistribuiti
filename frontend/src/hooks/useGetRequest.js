@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from 'react';
 
-export const useGetRequest = (endpoint) => { 
+export default function useGetRequest(endpoint) { 
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);

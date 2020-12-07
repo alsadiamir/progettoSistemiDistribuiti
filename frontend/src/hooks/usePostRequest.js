@@ -1,6 +1,6 @@
 import {useCallback, useState} from 'react';
 
-export const usePostRequest = (endpoint) => { 
+export default function usePostRequest(endpoint) { 
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);

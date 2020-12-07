@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { useGetRequest } from '../../../hooks/useGetRequest';
-import { usePostRequest } from '../../../hooks/usePostRequest';
+import useGetRequest from '../../../hooks/useGetRequest';
+import usePostRequest from '../../../hooks/usePostRequest';
 import UserContext from '../../../components/UserContext/component';
 
 const ReserveButton = styled.button`

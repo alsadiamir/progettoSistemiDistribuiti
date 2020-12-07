@@ -1,6 +1,9 @@
 import styled from 'styled-components'
-import { useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import ErrorBox from '../../components/ErrorBox/component'
 import Reservation from './Reservation/component';
+import useGetRequest from '../../hooks/useGetRequest'
+import UserContext from '../../components/UserContext/component'
 
 const ContainerDiv = styled.div`
     padding: 1rem;
@@ -13,7 +16,7 @@ const EntryList = styled.div`
     justify-content: center;
 `;
 
-const MenuEntryDiv = styled.button`
+const MenuEntryDiv = styled.div`
     margin: 1rem;
     padding: 2rem;
     justify-content: center;
@@ -36,30 +39,43 @@ const PageTitle = styled.h1`
 `;
 
 function ReservationListPage() {  
-    // TODO: Grab those from backend and show loading state
-    const [reservations, setReservations] = useState([
-        { id: 1, seatId: 1, date: Date.now(), hourIndex: 4, duration: 2},
-        { id: 1, seatId: 2, date: Date.now(), hourIndex: 5, duration: 1},
-        { id: 1, seatId: 3, date: Date.now(), hourIndex: 6, duration: 3},
-    ]);
+    const authedUser = useContext(UserContext)
+    const {data, loading, error} = useGetRequest(`/reservation?userId=${authedUser.id}`)
+    const [reservations, setReservations] = useState(null)
 
-    const onCancelReservation = (reservation) => {
-        console.log(reservation.id)
-    };
+    useEffect(() => {
+        if (data && !loading && !error) {
+            setReservations(data)
+        }
+    }, [data, loading, error, setReservations])
+
+    const onCancelReservation = useCallback((reservation) => {
+        setReservations(v => {
+            return v.filter((o) => o.id !== reservation.id)
+        })
+    }, [setReservations])
 
     return (
         <ContainerDiv>
             <PageTitle>Your Reservations</PageTitle>
-            <EntryList>
-                {reservations.map((m => (
-                    <MenuEntryDiv key={m.id} >
-                        <Reservation
-                            reservation={m}
-                            onCancel={onCancelReservation}
-                        />
-                    </MenuEntryDiv>
-                )))}
-            </EntryList> 
+            {reservations && data && !loading && !error && (
+                <EntryList>
+                    {reservations.map((m => (
+                        <MenuEntryDiv key={m.id} >
+                            <Reservation
+                                reservation={m}
+                                onCancel={onCancelReservation}
+                            />
+                        </MenuEntryDiv>
+                    )))}
+                </EntryList>
+                )} 
+            {loading && !error && (
+                <p>Loading...</p>
+            )} 
+            {!loading && error && (
+                <ErrorBox>error</ErrorBox>
+            )} 
         </ContainerDiv>
     );
 }

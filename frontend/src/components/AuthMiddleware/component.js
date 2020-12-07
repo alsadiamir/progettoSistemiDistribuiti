@@ -3,7 +3,7 @@ import GoogleLoginButton from '../GoogleLoginButton/component';
 import UserContext from '../UserContext/component';
 import ErrorBox from '../ErrorBox/component'
 import styled from 'styled-components';
-import { usePostRequest } from '../../hooks/usePostRequest';
+import usePostRequest from '../../hooks/usePostRequest';
 import useFcmAccessToken from '../../hooks/useFcmAccessToken'
 
 const ContainerDiv = styled.div`

@@ -4,10 +4,9 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import Select from 'react-select'
 import Seat from './Seat/component'
-import { useGetRequest } from '../../hooks/useGetRequest';
+import useGetRequest from '../../hooks/useGetRequest';
 import ErrorBox from '../../components/ErrorBox/component';
-
-const blockSizeInMinutes = 15;
+import {timeBlockSizeInMinutes} from '../../constants'
 
 const ContainerDiv = styled.div`
     text-align: center;
@@ -98,13 +97,13 @@ function RoomPage({room, onGoBack}) {
     useEffect(() => {
         const opening = room.openingTime.hour * 60 + room.openingTime.minute
         const closing = room.closingTime.hour * 60 + room.closingTime.minute
-        const numBlocks = Math.floor((closing - opening) / blockSizeInMinutes)
+        const numBlocks = Math.floor((closing - opening) / timeBlockSizeInMinutes)
         var newTimeOptions = []
         var curTimeBlock = 0
         for(let i = 0; i < numBlocks + 1; i++) {
             var now = Date.now()
             var dateNow = new Date(now)
-            var blockMinutes = opening + i * blockSizeInMinutes
+            var blockMinutes = opening + i * timeBlockSizeInMinutes
             dateNow.setHours(Math.floor(blockMinutes / 60), blockMinutes % 60, 0)
             newTimeOptions.push({
                 value: i,
@@ -117,7 +116,7 @@ function RoomPage({room, onGoBack}) {
         setTimeOptions(newTimeOptions)
         setFromBlock(curTimeBlock)
         setToBlock(curTimeBlock + 1)
-        setBaseBlockIndex(Math.floor(opening / blockSizeInMinutes))
+        setBaseBlockIndex(Math.floor(opening / timeBlockSizeInMinutes))
     }, [room.openingTime, room.closingTime])
 
     return (
