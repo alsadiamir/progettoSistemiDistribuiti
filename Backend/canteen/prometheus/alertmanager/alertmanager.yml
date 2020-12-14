@@ -1,0 +1,12 @@
+route:
+  group_by: [Alertname]
+  receiver: emailer
+receivers:
+- name: emailer
+  email_configs:
+  - to: alsadi.amir@gmail.com
+    from: alsadi.amir@gmail.com 
+    smarthost: smtp.gmail.com:587 
+    auth_username: "alsadi.amir@gmail.com"  
+    auth_identity: "alsadi.amir@gmail.com"  
+    auth_password: "Ilcapitano_97"

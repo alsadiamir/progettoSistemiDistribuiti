@@ -2,16 +2,21 @@ package it.unibo.canteen;
 
 import java.net.InetAddress;
 
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
+import io.micrometer.core.instrument.MeterRegistry;
+
 @SpringBootApplication
-//@EnablePrometheusMetrics
 public class CanteenApplication implements ApplicationListener<ApplicationReadyEvent>{
 	public static String myipAddr = "";
 	public static String myport   = "0";
@@ -37,4 +42,9 @@ public class CanteenApplication implements ApplicationListener<ApplicationReadyE
 	    	e.printStackTrace();
 	    }
 	}
+    
+    @Bean
+    MeterRegistryCustomizer<MeterRegistry> metricsCommonTags() {
+      return registry -> registry.config().commonTags("application", "CanteenApplication");
+    }
 }

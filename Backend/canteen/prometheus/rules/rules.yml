@@ -1,0 +1,10 @@
+groups:
+  - name: default
+    rules:
+      - alert: CPURate
+        expr: system_cpu_usage > 0 
+        for: 10s
+        labels:
+          severity: high
+        annotations:
+          summary: Application receiving too many requests
