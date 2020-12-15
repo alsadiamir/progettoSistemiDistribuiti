@@ -4,9 +4,11 @@ import javax.persistence.*;
 
 import com.sun.istack.NotNull;
 
+import java.io.Serializable;
+
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint( name = "room_x_y", columnNames = {"room_id", "x","y"}))
-public class Seat {
+public class Seat implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,6 @@
 package it.unibo.canteen.model;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import javax.persistence.*;
 import com.sun.istack.NotNull;
 
 @Entity
-public class Room {
+public class Room implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

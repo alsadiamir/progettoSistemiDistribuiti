@@ -1,6 +1,8 @@
 package it.unibo.canteen;
 
 import it.unibo.canteen.authentication.GoogleJwtFilter;
+import it.unibo.canteen.authentication.GoogleJwtVerifier;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +14,9 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 public class CustomWebSecurityConfigurerAdapter
         extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private GoogleJwtFilter googleJwtFilter;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
@@ -19,7 +24,7 @@ public class CustomWebSecurityConfigurerAdapter
                 .antMatchers(HttpMethod.GET).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterAfter(new GoogleJwtFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(googleJwtFilter, BasicAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 }

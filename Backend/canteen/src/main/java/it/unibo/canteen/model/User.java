@@ -5,9 +5,11 @@ import javax.persistence.*;
 
 import com.sun.istack.NotNull;
 
+import java.io.Serializable;
+
 
 @Entity
-public class User {
+public class User implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

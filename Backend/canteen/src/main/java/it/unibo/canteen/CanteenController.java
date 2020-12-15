@@ -1,5 +1,6 @@
 package it.unibo.canteen;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,6 +9,7 @@ import java.util.Optional;
 
 import it.unibo.canteen.authentication.AuthUserData;
 
+import it.unibo.canteen.cache.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,14 @@ public class CanteenController {
 	private SeatDAO seatDAO;
 	@Autowired
 	private UserDAO userDAO;
+    @Autowired
+    private Cache<Reservation> reservationCache;
+    @Autowired
+    private Cache<Room> roomCache;
+    @Autowired
+    private Cache<Seat> seatCache;
+	@Autowired
+    private Cache<User> userCache;
 	
 	private String htmlPage  = "index";
 	
@@ -67,7 +77,13 @@ public class CanteenController {
 	public String getUser(
             @RequestAttribute(AuthUserData.ATTR_NAME) AuthUserData authUser,
             @PathVariable("id") int userId
-    ) {
+    ) throws IOException {
+	    Optional<User> cachedUser = userCache.getAny("id-" + userId);
+	    if (cachedUser.isPresent()) {
+            String response = new Gson().toJson(cachedUser.get());
+            return response;
+        }
+
 		Optional<User> user = userDAO.findById(userId);
 		if(user.isPresent()) {
             if (!authUser.getEmail().equals(user.get().getMail())) {     
@@ -81,7 +97,6 @@ public class CanteenController {
 			return response;
 		}
 		else {
-			
 			LOGGER.error("USER "+user.get().getMail()+" COULDN'T BE FOUND");
 			return "{\"error\": \"Couldn't find user!\"}";
 		}
@@ -159,7 +174,7 @@ public class CanteenController {
 	
 	@GetMapping("/reservation")
 	public String getAllReservationsOfUser(
-//            @RequestAttribute(AuthUserData.ATTR_NAME) AuthUserData authUser,
+            @RequestAttribute(AuthUserData.ATTR_NAME) AuthUserData authUser,
             @RequestParam(name="userId", required=true) int userId
     ) {
 		List<Reservation> reservations = reservationDAO.findByUserId(userId);
@@ -204,30 +219,31 @@ public class CanteenController {
 	public String insertUser(
 	        @RequestAttribute(AuthUserData.ATTR_NAME) AuthUserData authUser,
             @RequestBody User user
-    ) {
+    ) throws IOException {
 	    if (!authUser.getEmail().equals(user.getMail())) {
-	    	
 	    	LOGGER.error("ACCESS DENIED FOR REQUESTED USER: "+authUser.getEmail());
 	    	throw new AuthorizationServiceException("You have no rights to access this user");
 	    }
-	       
-		Optional<User> alreadyAvailable = userDAO.findByMail(user.getMail());
+
+        Optional<User> alreadyAvailable = userCache.getAny("mail-" + user.getMail());
+        if (alreadyAvailable.isEmpty()) {
+            alreadyAvailable = userDAO.findByMail(user.getMail());
+        }
+
 		if(alreadyAvailable.isPresent()) {
 		    user = alreadyAvailable.get();
 			user.setDevice(user.getDevice());
 			user = userDAO.save(alreadyAvailable.get());
-			
-			LOGGER.debug("ACCESSED RESERVATION WITH ID: "+user.getMail()+" WITH SUCCESS");
-			String response = new Gson().toJson(alreadyAvailable);
-			return response;
 		}
 		else {
 			user = userDAO.save(user);
-			
-			LOGGER.debug("ACCESSED USER: "+user.getMail()+" WITH SUCCESS");
-			String response = new Gson().toJson(user);
-			return response;
-		}		
+		}
+
+		userCache.put("mail-" + user.getMail(), user);
+        userCache.put("id-" + user.getId(), user);
+        LOGGER.debug("ACCESSED USER: "+user.getMail()+" WITH SUCCESS");
+        String response = new Gson().toJson(user);
+        return response;
 	}
 
 	@PostMapping("/room")
@@ -274,7 +290,6 @@ public class CanteenController {
 		LOGGER.debug("RESERVATION WITH ID: "+reservation.getId()+" INSERTED WITH SUCCESS");
 		String response = new Gson().toJson(reservation);
 		return response;
-					
 	}
 
 	@PostMapping("/reservation/update/{id}")

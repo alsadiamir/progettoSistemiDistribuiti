@@ -1,5 +1,6 @@
 package it.unibo.canteen.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -13,7 +14,7 @@ import com.sun.istack.NotNull;
 //@Table(uniqueConstraints = @UniqueConstraint( name = "user_resDate_firstBlock_blocksRes_seat", columnNames = {"user_id","reservationDate","firstBlockReserved","blocksReserved","seat_id"}) 
 //							//@UniqueConstraint( name = "user_resDate_firstBlock_seat", columnNames = {"user_id","reservationDate","firstBlockReserved","seat_id"})
 //	  )
-public class Reservation {
+public class Reservation implements Serializable {
 	
 	@PrePersist
 	  protected void onCreate() {

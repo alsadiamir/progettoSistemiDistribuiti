@@ -56,8 +56,8 @@ function AuthMiddleware({ children }) {
             setCurUser(c => {
                 return {
                     ...c,
-                    device: data.value.device,
-                    id: data.value.id,
+                    device: data.device,
+                    id: data.id,
                 }
             })
         }

@@ -16,11 +16,13 @@ public class GoogleJwtVerifier {
     private static final HttpTransport transport = new NetHttpTransport();
     private static final JsonFactory jsonFactory = new JacksonFactory();
 
+    @Value("${google.authentication.clientId}")
+    private String googleClientId;
+
     AuthUserData verify(String idTokenString) throws IOException, GeneralSecurityException {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
-                .setAudience(Collections.singletonList("853386000336-9v0mk8f84acj7plh9ni54pkip84qqsnt.apps.googleusercontent.com"))
+                .setAudience(Collections.singletonList(googleClientId))
                 .build();
-
         GoogleIdToken idToken = verifier.verify(idTokenString);
         if (idToken != null) {
             GoogleIdToken.Payload payload = idToken.getPayload();

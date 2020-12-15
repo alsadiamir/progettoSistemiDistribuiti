@@ -1,5 +1,7 @@
 package it.unibo.canteen.authentication;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -9,9 +11,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+@Component
 public class GoogleJwtFilter extends GenericFilterBean {
-    private static String bearerPrefix = "Bearer ";
-    private GoogleJwtVerifier verifier = new GoogleJwtVerifier();
+    private static final String bearerPrefix = "Bearer ";
+
+    @Autowired
+    private GoogleJwtVerifier googleJwtVerifier;
 
     @Override
     public void doFilter(
@@ -25,7 +30,7 @@ public class GoogleJwtFilter extends GenericFilterBean {
                 throw new IOException("Only Bearer tokens are supported");
             }
             try {
-                AuthUserData authUserData = verifier.verify(authorizationHeader.substring(bearerPrefix.length()));
+                AuthUserData authUserData = googleJwtVerifier.verify(authorizationHeader.substring(bearerPrefix.length()));
                 httpRequest.setAttribute(AuthUserData.ATTR_NAME, authUserData);
             } catch (Exception e) {
                 throw new IOException(e);
