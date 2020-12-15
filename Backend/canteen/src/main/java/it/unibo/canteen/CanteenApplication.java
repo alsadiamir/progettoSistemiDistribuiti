@@ -1,9 +1,8 @@
 package it.unibo.canteen;
 
+import java.io.IOException;
 import java.net.InetAddress;
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
@@ -21,8 +20,8 @@ public class CanteenApplication implements ApplicationListener<ApplicationReadyE
 	public static String myipAddr = "";
 	public static String myport   = "0";
 	
-	public static void main(String[] args) {
-		SpringApplication.run(CanteenApplication.class, args);
+	public static void main(String[] args) throws IOException {
+	    SpringApplication.run(CanteenApplication.class, args);
 	}
 	
     @Autowired
@@ -47,4 +46,5 @@ public class CanteenApplication implements ApplicationListener<ApplicationReadyE
     MeterRegistryCustomizer<MeterRegistry> metricsCommonTags() {
       return registry -> registry.config().commonTags("application", "CanteenApplication");
     }
+
 }

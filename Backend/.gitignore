@@ -1,0 +1,4 @@
+.gradle
+.idea
+setup-env.sh
+google-services-admin.json

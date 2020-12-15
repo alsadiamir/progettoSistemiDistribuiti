@@ -1,4 +1,4 @@
-package it.unibo.canteen;
+package it.unibo.canteen.authentication;
 
 import it.unibo.canteen.authentication.GoogleJwtFilter;
 import it.unibo.canteen.authentication.GoogleJwtVerifier;

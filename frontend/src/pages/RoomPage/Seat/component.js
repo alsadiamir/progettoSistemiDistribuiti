@@ -50,10 +50,6 @@ function Seat({seat, reservationDate, blockIndex, blocksCount}) {
     const {doPost, data: postData, error: postError} = usePostRequest(`/reservation`)
     const [posted, setPosted] = useState(false)
 
-    useEffect(() => {
-        console.warn(postData)
-    }, [postData, postError])
-
     const onClick = useCallback((_) => {
        doPost({
            user: {
@@ -75,7 +71,9 @@ function Seat({seat, reservationDate, blockIndex, blocksCount}) {
             alert("Something went wrong with your reservation! :(")
             setPosted(false)
         } if(posted && postData) {
-            alert("You reserved this seat!")
+            if (postData.error) {
+                alert("ERROR: " + postData.error)
+            }
             refetch()
             setPosted(false)
         }

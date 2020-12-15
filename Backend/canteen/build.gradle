@@ -32,8 +32,9 @@ dependencies {
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '1.4.0.RELEASE'
     compile group: 'io.lettuce', name: 'lettuce-core', version: '6.0.1.RELEASE'
 
-	
-	implementation files('./libs/gson-2.8.6.jar')
+    implementation 'com.google.firebase:firebase-admin:7.1.0'
+
+    implementation files('./libs/gson-2.8.6.jar')
 	
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'

@@ -1,18 +1,18 @@
 import firebase from 'firebase'
+import { firebaseConfig, firebaseVapidKey } from '../../firebase-config';
 
-var config = {
-    apiKey: "AIzaSyClXtq-s3OWWUVblP4WzUlU0KU4bQ9NKLs",
-    authDomain: "sistemi-distribuiti-m.firebaseapp.com",
-    databaseURL: "https://sistemi-distribuiti-m.firebaseio.com",
-    projectId: "sistemi-distribuiti-m",
-    storageBucket: "sistemi-distribuiti-m.appspot.com",
-    messagingSenderId: "853386000336",
-    appId: "1:853386000336:web:aa512308684caefc522bd5"
-};
-
-firebase.initializeApp(config);
-
-const firebaseVapidKey = "BCRlbGW-Q1qNkbOnk_wBqZtOMWUAQiOOCHO1GJDYEDUwoudLH87GQOj5QcvFTi7IMaFW2P6mUxW5-bqEHg2qCSE";
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+firebaseApp.messaging().onMessage(function(payload) {
+    const notificationTitle = payload.notification?.title || "New notification!";
+    const notificationOptions = {
+        body: payload.notification?.body || "Nothing to show",
+    };
+    navigator.serviceWorker.getRegistrations().then(list => {
+        list.forEach(worker => {
+            worker.showNotification(notificationTitle, notificationOptions)
+        })
+    })
+});
 
 export default firebase;
 export { firebaseVapidKey };

@@ -13,6 +13,7 @@ import java.util.stream.StreamSupport;
 import it.unibo.canteen.authentication.AuthUserData;
 
 import it.unibo.canteen.cache.Cache;
+import it.unibo.canteen.notification.UserNotificationSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,11 @@ import it.unibo.canteen.model.User;
 
 @RestController
 public class CanteenController {
-	Logger LOGGER = LoggerFactory.getLogger(CanteenController.class);
+    private static final String htmlPage  = "index";
+	private final Logger LOGGER = LoggerFactory.getLogger(CanteenController.class);
 
+    @Autowired
+    private UserNotificationSender userNotificationSender;
 	@Autowired
 	private ReservationDAO reservationDAO;
 	@Autowired
@@ -51,9 +55,7 @@ public class CanteenController {
     private Cache<Seat> seatCache;
 	@Autowired
     private Cache<User> userCache;
-	
-	private String htmlPage  = "index";
-	
+
 	public CanteenController() {
 		System.out.println("**********************************************************");
 		System.out.println("**********************************************************");
@@ -267,8 +269,7 @@ public class CanteenController {
         }
 
 		if(alreadyAvailable.isPresent()) {
-		    user = alreadyAvailable.get();
-			user.setDevice(user.getDevice());
+		    alreadyAvailable.get().setDevice(user.getDevice());
 			user = userDAO.save(alreadyAvailable.get());
 		}
 		else {
@@ -327,6 +328,19 @@ public class CanteenController {
 		reservation = reservationDAO.save(reservation);
         reservationCache.delete("userId-" + reservation.getUser().getId());
 		reservationCache.put("id-" + reservation.getId(), reservation);
+
+		int reservationUserId = reservation.getUser().getId();
+		Optional<User> reservationUser = userCache.getAny("id-" + reservationUserId);
+		if (reservationUser.isEmpty()) {
+		    reservationUser = userDAO.findById(reservationUserId);
+        }
+		if(reservationUser.isPresent()) {
+            userNotificationSender.sendTextMessage(
+                    reservationUser.get(),
+                    "Your reservation has been created hehe"
+            );
+        }
+
 		LOGGER.debug("RESERVATION WITH ID: "+reservation.getId()+" INSERTED WITH SUCCESS");
         return new Gson().toJson(reservation);
 	}

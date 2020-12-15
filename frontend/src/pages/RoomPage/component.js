@@ -144,17 +144,25 @@ function RoomPage({room, onGoBack}) {
                         {timeOptions && (
                             <>
                                 <TimePickerDiv>
-                                    <Select value={timeOptions[fromBlock]} options={timeOptions} onChange={(v) => {
-                                        if(v.value < timeOptions.length - 1) {
-                                            setFromBlock(v.value)
-                                            if (v.value >= toBlock) {
-                                                setToBlock(v.value + 1)
-                                            }
-                                        }  
-                                    }}/>
+                                    <Select
+                                        value={timeOptions[fromBlock]} 
+                                        options={timeOptions}
+                                        onChange={(v) => {
+                                            if(v.value < timeOptions.length - 1) {
+                                                setFromBlock(v.value)
+                                                if (v.value >= toBlock) {
+                                                    setToBlock(v.value + 1)
+                                                }
+                                            }  
+                                        }}
+                                    />
                                 </TimePickerDiv>
                                 <TimePickerDiv>
-                                    <Select value={timeOptions[toBlock]} options={timeOptions} onChange={(v) => v.value > fromBlock && setToBlock(v.value)}/>
+                                    <Select
+                                        value={timeOptions[toBlock]}
+                                        options={timeOptions}
+                                        onChange={(v) => v.value > fromBlock && setToBlock(v.value)}
+                                    />
                                 </TimePickerDiv>
                             </>
                         )}
