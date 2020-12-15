@@ -98,9 +98,10 @@ function RoomPage({room, onGoBack}) {
         const opening = room.openingTime.hour * 60 + room.openingTime.minute
         const closing = room.closingTime.hour * 60 + room.closingTime.minute
         const numBlocks = Math.floor((closing - opening) / timeBlockSizeInMinutes)
+        var newStartDate = startDate;
         var newTimeOptions = []
         var curTimeBlock = 0
-        for(let i = 0; i < numBlocks + 1; i++) {
+        for(let i = 0; i <= numBlocks; i++) {
             var now = Date.now()
             var dateNow = new Date(now)
             var blockMinutes = opening + i * timeBlockSizeInMinutes
@@ -113,10 +114,17 @@ function RoomPage({room, onGoBack}) {
                 curTimeBlock = i
             }
         }
+        if(curTimeBlock >= numBlocks) {
+            curTimeBlock = 0
+            newStartDate = new Date(newStartDate)
+            newStartDate.setDate(newStartDate.getDate() + 1)
+        }
         setTimeOptions(newTimeOptions)
         setFromBlock(curTimeBlock)
         setToBlock(curTimeBlock + 1)
+        setStartDate(newStartDate)
         setBaseBlockIndex(Math.floor(opening / timeBlockSizeInMinutes))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [room.openingTime, room.closingTime])
 
     return (

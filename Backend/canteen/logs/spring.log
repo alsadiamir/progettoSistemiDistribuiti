@@ -1,0 +1,489 @@
+2020-12-15 17:46:26.385  INFO 67922 --- [restartedMain] it.unibo.canteen.CanteenApplication      : Starting CanteenApplication on xps with PID 67922 (/home/jason/dev/unibo-msc/progettoSistemiDistribuiti/Backend/canteen/build/classes/java/main started by jason in /home/jason/dev/unibo-msc/progettoSistemiDistribuiti/Backend/canteen)
+2020-12-15 17:46:26.387 DEBUG 67922 --- [restartedMain] it.unibo.canteen.CanteenApplication      : Running with Spring Boot v2.3.1.RELEASE, Spring v5.2.7.RELEASE
+2020-12-15 17:46:26.388  INFO 67922 --- [restartedMain] it.unibo.canteen.CanteenApplication      : No active profile set, falling back to default profiles: default
+2020-12-15 17:46:26.428  INFO 67922 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-12-15 17:46:26.429  INFO 67922 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-12-15 17:46:27.319  INFO 67922 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-12-15 17:46:27.320  INFO 67922 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2020-12-15 17:46:27.348  INFO 67922 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface it.unibo.canteen.dao.ReservationDAO. If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2020-12-15 17:46:27.349  INFO 67922 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface it.unibo.canteen.dao.RoomDAO. If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2020-12-15 17:46:27.351  INFO 67922 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface it.unibo.canteen.dao.SeatDAO. If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2020-12-15 17:46:27.352  INFO 67922 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface it.unibo.canteen.dao.UserDAO. If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2020-12-15 17:46:27.352  INFO 67922 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 28ms. Found 0 JDBC repository interfaces.
+2020-12-15 17:46:27.375  INFO 67922 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-12-15 17:46:27.376  INFO 67922 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-15 17:46:27.481  INFO 67922 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 100ms. Found 4 JPA repository interfaces.
+2020-12-15 17:46:27.491  INFO 67922 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-12-15 17:46:27.492  INFO 67922 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-12-15 17:46:27.501  INFO 67922 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface it.unibo.canteen.dao.ReservationDAO. If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository.
+2020-12-15 17:46:27.501  INFO 67922 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface it.unibo.canteen.dao.RoomDAO. If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository.
+2020-12-15 17:46:27.501  INFO 67922 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface it.unibo.canteen.dao.SeatDAO. If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository.
+2020-12-15 17:46:27.502  INFO 67922 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface it.unibo.canteen.dao.UserDAO. If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository.
+2020-12-15 17:46:27.502  INFO 67922 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3ms. Found 0 Redis repository interfaces.
+2020-12-15 17:46:28.172  INFO 67922 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-15 17:46:28.181  INFO 67922 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-15 17:46:28.182  INFO 67922 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.36]
+2020-12-15 17:46:28.246  INFO 67922 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-15 17:46:28.246  INFO 67922 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1817 ms
+2020-12-15 17:46:28.525 DEBUG 67922 --- [restartedMain] i.u.c.authentication.GoogleJwtFilter     : Filter 'googleJwtFilter' configured for use
+2020-12-15 17:46:28.679  INFO 67922 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-15 17:46:28.717  INFO 67922 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-15 17:46:28.760  INFO 67922 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.17.Final
+2020-12-15 17:46:28.876  INFO 67922 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-12-15 17:46:28.958  INFO 67922 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-12-15 17:46:28.970  WARN 67922 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-15 17:46:29.269  INFO 67922 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-12-15 17:46:29.282  INFO 67922 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2020-12-15 17:46:29.818  INFO 67922 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-15 17:46:29.824  INFO 67922 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-15 17:46:30.131  INFO 67922 --- [task-2] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-15 17:46:30.299  INFO 67922 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2020-12-15 17:46:30.715  INFO 67922 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 9fcd5499-9dac-4e14-b347-f3d0985d9628
+
+2020-12-15 17:46:30.818  INFO 67922 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 15 endpoint(s) beneath base path '/actuator'
+2020-12-15 17:46:30.852  INFO 67922 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@56509685, org.springframework.security.web.context.SecurityContextPersistenceFilter@548b5bb9, org.springframework.security.web.header.HeaderWriterFilter@2294bf57, org.springframework.web.filter.CorsFilter@68187a8b, org.springframework.security.web.authentication.logout.LogoutFilter@5bbbe6e9, it.unibo.canteen.authentication.GoogleJwtFilter@25177f98, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@64944584, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5a5b81bc, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@321a57fc, org.springframework.security.web.session.SessionManagementFilter@588c1944, org.springframework.security.web.access.ExceptionTranslationFilter@578af16f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@40b3e3b5]
+2020-12-15 17:46:31.042  INFO 67922 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-15 17:46:31.044  INFO 67922 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-15 17:46:31.256  INFO 67922 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-15 17:46:31.272  INFO 67922 --- [restartedMain] it.unibo.canteen.CanteenApplication      : Started CanteenApplication in 5.179 seconds (JVM running for 5.587)
+2020-12-15 17:46:47.369  INFO 67922 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-15 17:46:47.369  INFO 67922 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-12-15 17:46:47.382  INFO 67922 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 13 ms
+2020-12-15 17:46:47.937  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id mail-delebile8@gmail.com
+2020-12-15 17:46:47.987  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id mail-delebile8@gmail.com
+2020-12-15 17:46:47.989  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-1
+2020-12-15 17:46:47.989 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED USER: delebile8@gmail.com WITH SUCCESS
+2020-12-15 17:47:02.325  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache miss for id all
+2020-12-15 17:47:02.406  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id all
+2020-12-15 17:47:02.413  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-1
+2020-12-15 17:47:02.418  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-2
+2020-12-15 17:47:02.419 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED ROOMS WITH SUCCESS
+2020-12-15 17:47:17.952  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache miss for id roomId-1
+2020-12-15 17:47:18.006  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id roomId-1
+2020-12-15 17:47:18.014  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-1
+2020-12-15 17:47:18.019  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-2
+2020-12-15 17:47:18.020 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : ACCESSED SEATS IN ROOM WITH ID: 1 WITH SUCCESS
+2020-12-15 17:47:18.248  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:47:18.259 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:47:18.297  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:47:18.301 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:47:25.407  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Delete no object in cache for id userId-1
+2020-12-15 17:47:25.414  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-12
+2020-12-15 17:47:25.414 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : RESERVATION WITH ID: 12 INSERTED WITH SUCCESS
+2020-12-15 17:47:27.053  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:47:27.078 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:47:28.363  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache miss for id userId-1
+2020-12-15 17:47:28.386  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id userId-1
+2020-12-15 17:47:28.393  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-12
+2020-12-15 17:47:28.394 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED RESERVATION OF USER WITH ID: 1 WITH SUCCESS
+2020-12-15 17:47:30.047  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id all
+2020-12-15 17:47:30.049 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED ROOMS WITH SUCCESS
+2020-12-15 17:47:31.682  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id roomId-1
+2020-12-15 17:47:31.684 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEATS IN ROOM WITH ID: 1 WITH SUCCESS
+2020-12-15 17:47:31.887  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:47:31.895 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:47:32.025  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:47:32.037 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:47:33.722  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Delete in cache for id userId-1
+2020-12-15 17:47:33.727  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-13
+2020-12-15 17:47:33.728 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : RESERVATION WITH ID: 13 INSERTED WITH SUCCESS
+2020-12-15 17:47:35.022  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:47:35.041 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:47:36.533  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache miss for id userId-1
+2020-12-15 17:47:36.558  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id userId-1
+2020-12-15 17:47:36.564  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-12
+2020-12-15 17:47:36.570  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-13
+2020-12-15 17:47:36.570 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED RESERVATION OF USER WITH ID: 1 WITH SUCCESS
+2020-12-15 17:47:39.666  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Delete in cache for id userId-1
+2020-12-15 17:47:39.672  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-13
+2020-12-15 17:47:39.673 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : RESERVATION WITH ID: 13 DELETED WITH SUCCESS
+2020-12-15 17:47:41.038  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id all
+2020-12-15 17:47:41.040 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED ROOMS WITH SUCCESS
+2020-12-15 17:47:41.718  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache miss for id userId-1
+2020-12-15 17:47:41.737  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id userId-1
+2020-12-15 17:47:41.742  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-12
+2020-12-15 17:47:41.743 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED RESERVATION OF USER WITH ID: 1 WITH SUCCESS
+2020-12-15 17:47:43.449  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id all
+2020-12-15 17:47:43.452 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED ROOMS WITH SUCCESS
+2020-12-15 17:47:44.575  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache miss for id roomId-2
+2020-12-15 17:47:44.586  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id roomId-2
+2020-12-15 17:47:44.587 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEATS IN ROOM WITH ID: 2 WITH SUCCESS
+2020-12-15 17:47:47.262  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id userId-1
+2020-12-15 17:47:47.264 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED RESERVATION OF USER WITH ID: 1 WITH SUCCESS
+2020-12-15 17:47:47.831  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id all
+2020-12-15 17:47:47.833 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED ROOMS WITH SUCCESS
+2020-12-15 17:47:48.629  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id roomId-1
+2020-12-15 17:47:48.631 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : ACCESSED SEATS IN ROOM WITH ID: 1 WITH SUCCESS
+2020-12-15 17:47:48.836  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:47:48.845 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:47:48.959  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:47:48.974 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:47:52.347  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id userId-1
+2020-12-15 17:47:52.350 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : ACCESSED RESERVATION OF USER WITH ID: 1 WITH SUCCESS
+2020-12-15 17:47:53.578  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Delete in cache for id userId-1
+2020-12-15 17:47:53.582  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-12
+2020-12-15 17:47:53.583 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : RESERVATION WITH ID: 12 DELETED WITH SUCCESS
+2020-12-15 17:47:55.013  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id all
+2020-12-15 17:47:55.015 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED ROOMS WITH SUCCESS
+2020-12-15 17:47:56.526  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id roomId-1
+2020-12-15 17:47:56.528 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED SEATS IN ROOM WITH ID: 1 WITH SUCCESS
+2020-12-15 17:47:56.746  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:47:56.754 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:47:56.979  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:47:56.987 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:47:58.237  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Delete no object in cache for id userId-1
+2020-12-15 17:47:58.241  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-14
+2020-12-15 17:47:58.241 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : RESERVATION WITH ID: 14 INSERTED WITH SUCCESS
+2020-12-15 17:47:59.917  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:47:59.934 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:48:09.725  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache miss for id userId-1
+2020-12-15 17:48:09.743  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id userId-1
+2020-12-15 17:48:09.747  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-14
+2020-12-15 17:48:09.747 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED RESERVATION OF USER WITH ID: 1 WITH SUCCESS
+2020-12-15 17:48:10.948  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id all
+2020-12-15 17:48:10.949 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED ROOMS WITH SUCCESS
+2020-12-15 17:48:11.516  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id userId-1
+2020-12-15 17:48:11.518 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : ACCESSED RESERVATION OF USER WITH ID: 1 WITH SUCCESS
+2020-12-15 17:48:12.855  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Delete in cache for id userId-1
+2020-12-15 17:48:12.860  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-14
+2020-12-15 17:48:12.860 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : RESERVATION WITH ID: 14 DELETED WITH SUCCESS
+2020-12-15 17:48:14.040  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id all
+2020-12-15 17:48:14.041 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED ROOMS WITH SUCCESS
+2020-12-15 17:48:14.907  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id roomId-1
+2020-12-15 17:48:14.908 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED SEATS IN ROOM WITH ID: 1 WITH SUCCESS
+2020-12-15 17:48:15.077  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:48:15.081 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:48:15.129  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:48:15.133 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:48:16.233  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Delete no object in cache for id userId-1
+2020-12-15 17:48:16.237  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-15
+2020-12-15 17:48:16.238 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : RESERVATION WITH ID: 15 INSERTED WITH SUCCESS
+2020-12-15 17:48:17.446  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:48:17.463 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:48:20.171  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:48:20.179 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:48:20.254  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:48:20.262 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:48:23.664 ERROR 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : RESERVATION FOR USER: delebile8@gmail.com IN DATE SPECIFIED ALREADY EXISTS
+2020-12-15 17:48:25.103  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:48:25.112 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:48:32.243  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:48:32.251 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:48:32.261  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:48:32.269 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:48:40.323  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:48:40.331 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:48:40.363  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:48:40.370 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:48:42.586  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:48:42.587  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:48:42.593 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:48:42.594 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:48:44.780  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:48:44.781  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:48:44.787 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:48:44.788 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:48:50.173  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:48:50.180 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:48:50.193  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:48:50.201 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:48:52.598  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:48:52.598  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:48:52.607 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:48:52.607 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:33.121  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id mail-delebile8@gmail.com
+2020-12-15 17:54:33.126  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id mail-delebile8@gmail.com
+2020-12-15 17:54:33.128  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-1
+2020-12-15 17:54:33.128 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED USER: delebile8@gmail.com WITH SUCCESS
+2020-12-15 17:54:41.941  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id all
+2020-12-15 17:54:41.942 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED ROOMS WITH SUCCESS
+2020-12-15 17:54:45.875  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id roomId-1
+2020-12-15 17:54:45.877 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED SEATS IN ROOM WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.048  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.051 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.086  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.090 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.098  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.101 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.117  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.117  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.121 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.121 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.122  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.126 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.138  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.141 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.142  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.146 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.150  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.154  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.155 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.156  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.157 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.157  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.160 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.160 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.173  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.176  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.177 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.178 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.197  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.200  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.200 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.202  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.203 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.204  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.205 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.208 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.211  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.213  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.214 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.217 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.232  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.235 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.241  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.242  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.242  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.244 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.245 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.245 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.253  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.256 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.258  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.261 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.268  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.271 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.290  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.294 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.302  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.304  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.305 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.307 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.314  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.315  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.316 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.319 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.333  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.334  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.337 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.338 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.343  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.343  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.345 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.346 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.365  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.365  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.368 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.368 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.379  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.380  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.382 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.382 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.393  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.393  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.395 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.396 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.407  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.409  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.410 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.412 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.419  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.422 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.425  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.428 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.437  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.437  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.440 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.440 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.458  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.458  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.461 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.461 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.471  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.471  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.475 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.475 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.496  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.499 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.527  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.527  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.527  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.530 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.530 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.530 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.533  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.536 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.548  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.552 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.558  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.562 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.568  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.568  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.571 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.571 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.574  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.575  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.577 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.578 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.588  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.591 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.598  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.601 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.607  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.608  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.610 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.610 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.612  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.613  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.616 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.617 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.626  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.629 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.638  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.642 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.645  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.648  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.648 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.651  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.652  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.652 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.655 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.655 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.660  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.663 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.673  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.676 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.685  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.688 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.694  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.694  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.694  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.697 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.697 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.697 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.702  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.705 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.714  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.717 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.720  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.724 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.751  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.751  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.751  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.753 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.753 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.754 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.761  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.762  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.764 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.765 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.788  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.789  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.789  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.791 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.791 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.791 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.802  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.803  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.805 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.805 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.812  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.815 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.836  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.836  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.836  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.837  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.839 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.839 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.839 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.839 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:54:46.855  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:54:46.858 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:54:46.905  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:54:46.908 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:55:24.404  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id mail-delebile8@gmail.com
+2020-12-15 17:55:24.408  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id mail-delebile8@gmail.com
+2020-12-15 17:55:24.409  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-1
+2020-12-15 17:55:24.409 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED USER: delebile8@gmail.com WITH SUCCESS
+2020-12-15 17:55:28.666  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id all
+2020-12-15 17:55:28.667 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : ACCESSED ROOMS WITH SUCCESS
+2020-12-15 17:55:29.719  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id roomId-1
+2020-12-15 17:55:29.720 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEATS IN ROOM WITH ID: 1 WITH SUCCESS
+2020-12-15 17:55:29.897  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:55:29.900 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:55:29.974  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:55:29.980 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:55:34.886  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:55:34.886  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:55:34.892 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:55:34.892 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:55:36.692  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:55:36.692  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:55:36.700 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:55:36.700 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:55:37.963  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Delete no object in cache for id userId-1
+2020-12-15 17:55:37.967  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-16
+2020-12-15 17:55:37.967 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : RESERVATION WITH ID: 16 INSERTED WITH SUCCESS
+2020-12-15 17:55:39.367  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:55:39.383 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:55:40.944  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:55:40.946  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:55:40.953 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:55:40.957 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:55:42.802  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:55:42.802  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:55:42.809 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:55:42.815 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:55:43.883  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Delete no object in cache for id userId-1
+2020-12-15 17:55:43.886  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-17
+2020-12-15 17:55:43.886 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : RESERVATION WITH ID: 17 INSERTED WITH SUCCESS
+2020-12-15 17:55:45.040  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:55:45.053 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:55:46.970  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:55:46.970  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:55:46.977 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:55:46.985 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:55:47.789 ERROR 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : RESERVATION FOR USER: delebile8@gmail.com IN DATE SPECIFIED ALREADY EXISTS
+2020-12-15 17:55:48.896  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:55:48.903 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:55:51.476  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache miss for id userId-1
+2020-12-15 17:55:51.495  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id userId-1
+2020-12-15 17:55:51.498  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-15
+2020-12-15 17:55:51.501  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-16
+2020-12-15 17:55:51.504  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-17
+2020-12-15 17:55:51.504 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED RESERVATION OF USER WITH ID: 1 WITH SUCCESS
+2020-12-15 17:55:53.612  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Delete in cache for id userId-1
+2020-12-15 17:55:53.616  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-15
+2020-12-15 17:55:53.616 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : RESERVATION WITH ID: 15 DELETED WITH SUCCESS
+2020-12-15 17:56:03.073  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Delete no object in cache for id userId-1
+2020-12-15 17:56:03.077  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-16
+2020-12-15 17:56:03.077 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : RESERVATION WITH ID: 16 DELETED WITH SUCCESS
+2020-12-15 17:56:03.901  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Delete no object in cache for id userId-1
+2020-12-15 17:56:03.905  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-17
+2020-12-15 17:56:03.905 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : RESERVATION WITH ID: 17 DELETED WITH SUCCESS
+2020-12-15 17:56:05.290  INFO 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id all
+2020-12-15 17:56:05.291 DEBUG 67922 --- [http-nio-8080-exec-5] it.unibo.canteen.CanteenController       : ACCESSED ROOMS WITH SUCCESS
+2020-12-15 17:56:12.602  INFO 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id roomId-2
+2020-12-15 17:56:12.602 DEBUG 67922 --- [http-nio-8080-exec-1] it.unibo.canteen.CanteenController       : ACCESSED SEATS IN ROOM WITH ID: 2 WITH SUCCESS
+2020-12-15 17:56:13.959  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache miss for id userId-1
+2020-12-15 17:56:13.966  INFO 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id userId-1
+2020-12-15 17:56:13.966 DEBUG 67922 --- [http-nio-8080-exec-8] it.unibo.canteen.CanteenController       : ACCESSED RESERVATION OF USER WITH ID: 1 WITH SUCCESS
+2020-12-15 17:56:15.957  INFO 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id all
+2020-12-15 17:56:15.958 DEBUG 67922 --- [http-nio-8080-exec-9] it.unibo.canteen.CanteenController       : ACCESSED ROOMS WITH SUCCESS
+2020-12-15 17:56:16.747  INFO 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id roomId-1
+2020-12-15 17:56:16.748 DEBUG 67922 --- [http-nio-8080-exec-3] it.unibo.canteen.CanteenController       : ACCESSED SEATS IN ROOM WITH ID: 1 WITH SUCCESS
+2020-12-15 17:56:16.914  INFO 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-2
+2020-12-15 17:56:16.917 DEBUG 67922 --- [http-nio-8080-exec-10] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 2 WITH SUCCESS
+2020-12-15 17:56:16.964  INFO 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:56:16.971 DEBUG 67922 --- [http-nio-8080-exec-2] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:56:18.143  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Delete in cache for id userId-1
+2020-12-15 17:56:18.146  INFO 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-18
+2020-12-15 17:56:18.146 DEBUG 67922 --- [http-nio-8080-exec-6] it.unibo.canteen.CanteenController       : RESERVATION WITH ID: 18 INSERTED WITH SUCCESS
+2020-12-15 17:56:19.357  INFO 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache hit for id id-1
+2020-12-15 17:56:19.370 DEBUG 67922 --- [http-nio-8080-exec-4] it.unibo.canteen.CanteenController       : ACCESSED SEAT WITH ID: 1 WITH SUCCESS
+2020-12-15 17:56:20.486  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Cache miss for id userId-1
+2020-12-15 17:56:20.502  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id userId-1
+2020-12-15 17:56:20.505  INFO 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.cache.redis.RedisCache  : REDIS: Put in cache for id id-18
+2020-12-15 17:56:20.506 DEBUG 67922 --- [http-nio-8080-exec-7] it.unibo.canteen.CanteenController       : ACCESSED RESERVATION OF USER WITH ID: 1 WITH SUCCESS
