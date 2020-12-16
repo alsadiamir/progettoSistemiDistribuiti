@@ -366,7 +366,17 @@ public class CanteenController {
                 reservationCache.put("id-" + reservationToInform.getId(), reservationToInform);
                 LOGGER.debug("RESERVATION WITH ID: "+reservationToInform.getId()+" UNLINKED TO PREVIOUS WITH SUCCESS");
 
-                // TODO: Send push notification
+                Optional<User> userToInform = userCache.getAny("id-" + reservationToInform.getUser().getId());
+                if (userToInform.isEmpty()) {
+                    userToInform = userDAO.findById(reservationToInform.getUser().getId());
+                }
+                if(userToInform.isPresent()) {
+                    userNotificationSender.sendTextMessage(
+                            userToInform.get(),
+                            "Someone removed their reservation, you are now the first in line for "
+                                    + reservationToInform.getReservationDate() + "!"
+                    );
+                }
             }
 
             Reservation r = reservation.get();
