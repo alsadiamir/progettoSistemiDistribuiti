@@ -24,7 +24,7 @@ run-mysql:
 	service mysql start
 
 run-prometheus:
-	docker run -d --name prometheus_demo -p 9090:9090 -v prometheus/:/etc/prometheus/ prom/prometheus
+	docker run -d --name prometheus_demo -p 9090:9090 -v `pwd`/Backend/canteen/prometheus/:/etc/prometheus/ prom/prometheus
 
 run-grafana:
 	docker run -d -p 5000:3000 grafana/grafana
