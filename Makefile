@@ -9,6 +9,7 @@ setup-secrets:
 	unzip -o secrets.zip -d .
 	mkdir -p $HOME/canteen
 	cp ./Backend/google-services-admin.json $HOME/canteen/google-services-admin.json
+	sudo docker load --input aa.canteeui.latest.tar
 	@echo Done!
 
 run-frontend: setup-secrets
