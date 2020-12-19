@@ -1,4 +1,4 @@
-import { firebaseConfig } from './firebase-config.js';
+importScripts('../firebase-config.js');
 importScripts("https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js");
 importScripts("https://www.gstatic.com/firebasejs/8.1.2/firebase-messaging.js");
 importScripts("https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js");
