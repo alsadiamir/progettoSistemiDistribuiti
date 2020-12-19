@@ -27,7 +27,7 @@ run-prometheus:
 	docker run -d --name prometheus_demo -p 9090:9090 -v prometheus/:/etc/prometheus/ prom/prometheus
 
 run-grafana:
-	docker run -d -p 3000:3000 grafana/grafana
+	docker run -d -p 5000:3000 grafana/grafana
 
 run-all:
 	echo "START"; \
