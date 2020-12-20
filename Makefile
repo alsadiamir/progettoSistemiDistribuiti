@@ -7,8 +7,8 @@ install:
 
 setup-secrets:
 	unzip -o secrets.zip -d .
-	mkdir -p $HOME/canteen
-	cp ./Backend/google-services-admin.json $HOME/canteen/google-services-admin.json
+	mkdir -p ${HOME}/canteen
+	cp ./Backend/google-services-admin.json ${HOME}/canteen/google-services-admin.json
 	@echo Done!
 
 run-frontend: setup-secrets
