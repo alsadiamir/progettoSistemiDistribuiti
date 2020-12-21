@@ -9,7 +9,7 @@ setup-secrets:
 	unzip -o secrets.zip -d .
 	mkdir -p ${HOME}/canteen
 	cp ./Backend/google-services-admin.json ${HOME}/canteen/google-services-admin.json
-	sudo docker load --input aa.canteeui.latest.tar
+	sudo docker load < aa.canteeui.latest.tar
 	@echo Done!
 
 run-frontend: setup-secrets
@@ -28,7 +28,7 @@ run-prometheus:
 	docker run -d --name prometheus_demo -p 9090:9090 -v `pwd`/Backend/canteen/prometheus/:/etc/prometheus/ prom/prometheus
 
 run-grafana:
-	docker run -d -p 5000:3000 grafana/grafana
+	docker run -d -p 5000:3000 alsadiamir/canteenui:v1
 
 run-all:
 	echo "START"; \
